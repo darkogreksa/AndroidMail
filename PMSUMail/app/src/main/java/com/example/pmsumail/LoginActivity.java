@@ -1,14 +1,37 @@
 package com.example.pmsumail;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class LoginActivity extends AppCompatActivity {
+    private Button btnStartEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initViews();
+    }
+
+    private void initViews(){
+        btnStartEmail = findViewById(R.id.btn_start_email);
+        btnStartEmail.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == btnStartEmail.getId()) {
+            btnStartEmailsActivity();
+        }
+    }
+
+    private void btnStartEmailsActivity() {
+        Intent intent  = new Intent(LoginActivity.this,EmailsActivity.class);
+        startActivity(intent);
     }
 
     @Override
