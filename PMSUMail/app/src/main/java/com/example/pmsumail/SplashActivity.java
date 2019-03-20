@@ -12,6 +12,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         startLoginActivity();
+
+        //addPreferencesFromResource
+
     }
 
     private void startLoginActivity(){
@@ -50,8 +53,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        Log.e("TAG", "SplashActivity --- > onDestroy");
-        super.onDestroy();
+    protected void onDestroy() {super.onDestroy();
     }
 }
