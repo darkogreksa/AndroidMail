@@ -3,7 +3,11 @@ package com.example.pmsumail;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD:app/src/main/java/com/example/pmsumail/SplashActivity.java
+import android.widget.ImageView;
+=======
 import android.util.Log;
+>>>>>>> 6305fc91ffaf1da1baa4cb5736462f3fd8d14d0c:PMSUMail/app/src/main/java/com/example/pmsumail/SplashActivity.java
 
 public class SplashActivity extends AppCompatActivity {
 

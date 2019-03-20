@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnStartEmail;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +17,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initViews(){
-        btnStartEmail = findViewById(R.id.btn_start_email);
-        btnStartEmail.setOnClickListener(this);
+        btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == btnStartEmail.getId()) {
+        if (view.getId() == btnLogin.getId()) {
             btnStartEmailsActivity();
         }
     }

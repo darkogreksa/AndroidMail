@@ -4,12 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_margin="10dp"
+        android:text="@string/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:layout_margin="10dp"
+        android:text="@string/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:inputType="textPassword"/>
+
     <Button
-        android:id="@+id/btn_start_email"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="Go to email" />
+        android:text="Sign in" />
 
 </LinearLayout>
