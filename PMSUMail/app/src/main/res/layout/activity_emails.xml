@@ -12,6 +12,11 @@
         android:id="@+id/contact_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Contact" />
+    <Button
+        android:id="@+id/contacts_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Contacts" />
     <Button
         android:id="@+id/create_contact_btn"
@@ -24,10 +29,20 @@
         android:layout_height="wrap_content"
         android:text="Email" />
     <Button
+        android:id="@+id/create_email_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Email" />
+    <Button
         android:id="@+id/create_folder_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create Folder" />
+    <Button
+        android:id="@+id/folder_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Folder" />
 
     <Button
         android:id="@+id/folders_btn"
