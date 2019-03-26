@@ -1,6 +1,7 @@
 package com.example.pmsumail;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private NavigationView navigation;
     private Toolbar toolbar;
     private ImageView btnLogout;
     private TextView toolbarText;
@@ -26,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         btnLogout = toolbar.findViewById(R.id.button_one);
         toolbarText = toolbar.findViewById(R.id.toolbar_text);
+
+
 
         btnLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon));
         toolbarText.setText("Profile");

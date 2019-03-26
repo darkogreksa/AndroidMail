@@ -43,4 +43,8 @@
     <string name="create_contact">Create contact</string>
     <string name="contacts">Contacts</string>
     <string name="contact">Contact</string>
+    <string name="create_contact_name">Name</string>
+    <string name="create_contact_last_name">Last name</string>
+    <string name="create_contact_email">Email</string>
+    <string name="button_crate_contact">Create contact</string>
 </resources>
