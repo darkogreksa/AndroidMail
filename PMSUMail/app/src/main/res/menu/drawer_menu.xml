@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/ic_contact"
+            android:title="@string/contacts" />
+        <item
+            android:id="@+id/nav_create_contact"
+            android:icon="@drawable/ic_contact"
+            android:title="@string/create_contact" />
+        <item
+            android:id="@+id/nav_emails"
+            android:icon="@drawable/ic_emails"
+            android:title="@string/emails" />
+        <item
+            android:id="@+id/nav_create_email"
+            android:icon="@drawable/ic_emails"
+            android:title="@string/create_email" />
+        <item
+            android:id="@+id/nav_folders"
+            android:icon="@drawable/ic_folders"
+            android:title="@string/folders" />
+        <item
+            android:id="@+id/nav_create_folder"
+            android:icon="@drawable/ic_folders"
+            android:title="@string/create_folder" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+
+    </group>
+
+</menu>
