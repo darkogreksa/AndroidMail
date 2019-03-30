@@ -3,6 +3,7 @@ package com.example.pmsumail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,12 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.model.NavItem;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -44,6 +50,16 @@ public class EmailsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
+
+        //Prelazak na ProfileActivity na klik na "view profile"
+        TextView textView = findViewById(R.id.textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EmailsActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
 
         mDrawerPane = findViewById(R.id.drawerPane);
         DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
