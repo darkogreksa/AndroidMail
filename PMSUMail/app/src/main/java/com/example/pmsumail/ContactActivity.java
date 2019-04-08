@@ -16,24 +16,28 @@ import com.example.pmsumail.model.Contact;
 
 public class ContactActivity extends AppCompatActivity {
 
-    private AppBarLayout appBarLayout;
-    private CharSequence mTitle;
-    private Contact contact = new Contact();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        appBarLayout = findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
 
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
+
+        TextView firstname_view = findViewById(R.id.firstname_view);
+        TextView lastname_view = findViewById(R.id.lastname_view);
+        TextView email_view = findViewById(R.id.email_view);
+
+        firstname_view.setText(getIntent().getStringExtra("First name"));
+        lastname_view.setText(getIntent().getStringExtra("Last name"));
+        email_view.setText(getIntent().getStringExtra("Email"));
     }
 
     //tekst koji se ispisuje na toolbar-u
     @Override
     public void setTitle(CharSequence title) {
-        mTitle = title;
+        CharSequence mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
 
@@ -54,7 +58,8 @@ public class ContactActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_save:
-                Snackbar.make(findViewById(R.id.coordinator),"Saved",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.action_save),"Saved",Snackbar.LENGTH_SHORT).show();
+                return true;
             case R.id.action_back:
                 Intent in = new Intent(this, ContactsActivity.class);
                 startActivity(in);
