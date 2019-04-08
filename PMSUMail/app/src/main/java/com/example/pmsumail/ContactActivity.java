@@ -1,42 +1,68 @@
 package com.example.pmsumail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pmsumail.model.Contact;
+
 public class ContactActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TextView toolbarText;
-    private ImageView btnBack;
-    private ImageView btnSave;
+    private AppBarLayout appBarLayout;
+    private CharSequence mTitle;
+    private Contact contact = new Contact();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        initView();
+        appBarLayout = findViewById(R.id.appbar);
 
-
+        Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
     }
 
-    private void initView(){
-        toolbar = findViewById(R.id.toolbar);
-        btnBack = findViewById(R.id.button_four);
-        btnSave = findViewById(R.id.button_one);
-        toolbarText = findViewById(R.id.toolbar_text);
-
-        btnBack.setImageDrawable(getResources().getDrawable(R.drawable.ic_back));
-        btnSave.setImageDrawable(getResources().getDrawable(R.drawable.ic_save));
-        toolbarText.setText("Contact");
-
-
-
+    //tekst koji se ispisuje na toolbar-u
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
     }
 
+    //meni na toolbaru, odnosno ikonice za prelazak na ostale aktivnosti
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_item_contact, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //funkcionalnost opcija iz menija gore navedenog
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_save:
+                Snackbar.make(findViewById(R.id.coordinator),"Saved",Snackbar.LENGTH_SHORT).show();
+            case R.id.action_back:
+                Intent in = new Intent(this, ContactsActivity.class);
+                startActivity(in);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onStart() {
@@ -46,6 +72,8 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
     @Override

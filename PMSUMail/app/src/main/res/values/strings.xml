@@ -49,4 +49,6 @@
     <string name="button_create_folder">Create folder</string>
     <string name="create_folder_name">Folder name</string>
     <string name="create_folder">Create folder</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
 </resources>
