@@ -1,10 +1,11 @@
 package com.example.pmsumail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +15,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
+import com.example.pmsumail.adapters.EmailListAdapter;
+import com.example.pmsumail.model.Email;
 import com.example.pmsumail.model.NavItem;
 
-import org.w3c.dom.Text;
-
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class EmailsActivity extends AppCompatActivity {
@@ -36,7 +35,15 @@ public class EmailsActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
+    private ArrayList<Email> emails = new ArrayList<Email>();
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
+
+    private EmailListAdapter emailListAdapter;
+
+    private Email email1 = new Email();
+    private Email email2 = new Email();
+    private Email email3  = new Email();
+    private Email email4 = new Email();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +95,6 @@ public class EmailsActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
             }
-
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
@@ -97,6 +103,63 @@ public class EmailsActivity extends AppCompatActivity {
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(findViewById(R.id.coordinator),"Fab",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        email1.setContent("Primer1");
+        email1.setFrom("Amelie");
+
+        email2.setContent("Primer2");
+        email2.setFrom("Carl");
+
+        email3.setContent("Primer3");
+        email3.setFrom("Coby");
+
+        emails.add(email1);
+        emails.add(email2);
+        emails.add(email3);
+
+
+        emailListAdapter = new EmailListAdapter(this, emails);
+        final ListView listView = findViewById(R.id.emails_list);
+        listView.setAdapter(emailListAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Email email = emails.get(i);
+
+                Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
+                intent.putExtra("Content", email.getContent());
+                intent.putExtra("From", email.getFrom());
+
+                try {
+                    String fileName = "drawable";
+
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+
+                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+
+
+                    fileOutputStream.write(bytes.toByteArray());
+                    fileOutputStream.close();
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            }
+        });
+
     }
 
     //listener koji prihvata informaciju koja pozicija u draweru je kliknuta

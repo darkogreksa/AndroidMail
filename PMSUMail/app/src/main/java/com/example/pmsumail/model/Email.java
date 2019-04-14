@@ -15,6 +15,7 @@ public class Email {
     public Email() {
     }
 
+
     public Email(int id, String from, String to, String cc, String bcc, Date dateTime, String subject, String content) {
         this.id = id;
         this.from = from;
@@ -26,15 +27,11 @@ public class Email {
         this.content = content;
     }
 
-    public Email(String from, String to, String cc, String bcc, Date dateTime, String subject, String content) {
-        this.from = from;
-        this.to = to;
-        this.cc = cc;
-        this.bcc = bcc;
-        this.dateTime = dateTime;
-        this.subject = subject;
+    public Email(String content, String from) {
         this.content = content;
+        this.from = from;
     }
+
 
     public int getId() {
         return id;

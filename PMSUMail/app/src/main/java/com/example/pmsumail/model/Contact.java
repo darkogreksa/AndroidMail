@@ -12,8 +12,15 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(int id, String firstname, String lastname, String email) {
+    public Contact(int id, String firstname, String lastname, String email, Bitmap photo) {
         this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.photo = photo;
+    }
+
+    public Contact(String firstname, String lastname, String email) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -25,13 +32,6 @@ public class Contact {
     }
 
     public void setPhoto(Bitmap photo) {
-        this.photo = photo;
-    }
-
-    public Contact(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
         this.photo = photo;
     }
 
