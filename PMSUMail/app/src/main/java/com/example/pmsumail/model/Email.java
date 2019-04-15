@@ -27,9 +27,10 @@ public class Email {
         this.content = content;
     }
 
-    public Email(String content, String from) {
+    public Email(String content, String from, Date dateTime) {
         this.content = content;
         this.from = from;
+        this.dateTime = dateTime;
     }
 
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Email;
 
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class EmailListAdapter extends ArrayAdapter<Email> {
@@ -29,11 +29,17 @@ public class EmailListAdapter extends ArrayAdapter<Email> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.email_list_item, viewGroup, false);
         }
 
-        TextView email_context_view = view.findViewById(R.id.email_name_view);
-        TextView email_from_view = view.findViewById(R.id.email_context_view);
+        TextView email_context_view = view.findViewById(R.id.email_context_view);
+        TextView email_from_view = view.findViewById(R.id.email_name_view);
+        TextView date_messages = view.findViewById(R.id.date_messages);
 
         email_context_view.setText(email.getContent());
+
         email_from_view.setText(email.getFrom());
+
+        SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
+        String date = simpleDate.format(email.getDateTime());
+        date_messages.setText(date);
 
 
 

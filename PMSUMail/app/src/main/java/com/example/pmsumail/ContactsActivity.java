@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -108,7 +107,7 @@ public class ContactsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(findViewById(R.id.coordinator),"Fab",Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();
             }
         });
 
@@ -219,6 +218,7 @@ public class ContactsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_create_contacts:
                 Intent in = new Intent(this, CreateContactActivity.class);
+                Toast.makeText(getBaseContext(), "Create contact" , Toast.LENGTH_SHORT ).show();
                 startActivity(in);
                 return true;
         }

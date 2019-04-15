@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.FolderListAdapter;
@@ -107,22 +107,22 @@ public class FoldersActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(findViewById(R.id.coordinator),"Fab",Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();;
             }
         });
 
 
         folder1.setName("Folder1");
-        folder1.setMessages("10");
+        folder1.setMessages("messages (10)");
 
         folder2.setName("Folder2");
-        folder2.setMessages("CC");
+        folder2.setMessages("messages (22)");
 
         folder3.setName("Folder3");
-        folder3.setMessages("BB");
+        folder3.setMessages("messages (13)");
 
         folder4.setName("Folder4");
-        folder4.setMessages("AA");
+        folder4.setMessages("messages (14)");
 
         folders.add(folder1);
         folders.add(folder2);
@@ -212,6 +212,7 @@ public class FoldersActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_create_folder:
                 Intent in = new Intent(this, CreateEmailActivity.class);
+                Toast.makeText(getBaseContext(), "Create folder" , Toast.LENGTH_SHORT ).show();
                 startActivity(in);
                 return true;
         }

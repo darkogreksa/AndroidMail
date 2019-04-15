@@ -29,8 +29,10 @@ public class FolderListAdapter extends ArrayAdapter<Folder> {
         }
 
         TextView folder_name_view = view.findViewById(R.id.folder_name_view);
+        TextView number_of_messages = view.findViewById(R.id.number_of_messages);
 
         folder_name_view.setText(folder.getName());
+        number_of_messages.setText(folder.getMessages());
 
 
 

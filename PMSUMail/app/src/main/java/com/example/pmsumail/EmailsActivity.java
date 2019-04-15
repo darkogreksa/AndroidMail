@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.EmailListAdapter;
@@ -27,6 +27,7 @@ import com.example.pmsumail.model.NavItem;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EmailsActivity extends AppCompatActivity {
 
@@ -108,18 +109,22 @@ public class EmailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(findViewById(R.id.coordinator),"Fab",Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();
             }
         });
 
-        email1.setContent("Primer1");
         email1.setFrom("Amelie");
+        email1.setContent(":Message...");
+        email1.setDateTime(new Date());
 
-        email2.setContent("Primer2");
+        email2.setContent(":Message...");
         email2.setFrom("Carl");
+        email2.setDateTime(new Date());
 
-        email3.setContent("Primer3");
-        email3.setFrom("Coby");
+        email3.setContent(":Message...");
+        email3.setFrom("Kole");
+        email3.setDateTime(new Date());
+
 
         emails.add(email1);
         emails.add(email2);
@@ -215,10 +220,12 @@ public class EmailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent i = new Intent(this, SettingsActivity.class);
+                Toast.makeText(getBaseContext(), "Settings" , Toast.LENGTH_SHORT ).show();
                 startActivity(i);
                 return true;
             case R.id.action_create_email:
                 Intent in = new Intent(this, CreateEmailActivity.class);
+                Toast.makeText(getBaseContext(), "Create mail" , Toast.LENGTH_SHORT ).show();
                 startActivity(in);
                 return true;
         }
