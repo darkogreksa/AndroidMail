@@ -122,7 +122,7 @@ public class FoldersActivity extends AppCompatActivity {
         folder3.setMessages("messages (13)");
 
         folder4.setName("Folder4");
-        folder4.setMessages("messages (14)");
+        folder4.setMessages("messages (29)");
 
         folders.add(folder1);
         folders.add(folder2);
