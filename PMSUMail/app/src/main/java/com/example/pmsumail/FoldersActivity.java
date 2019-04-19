@@ -2,6 +2,8 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -107,22 +109,33 @@ public class FoldersActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent in = new Intent (FoldersActivity.this, CreateFolderActivity.class);
+                startActivity(in);
                 Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();;
+
             }
         });
 
 
         folder1.setName("Folder1");
         folder1.setMessages("messages (10)");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.folder);
+        folder1.setPhoto(bitmap);
 
         folder2.setName("Folder2");
         folder2.setMessages("messages (22)");
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.folder);
+        folder2.setPhoto(bitmap1);
 
         folder3.setName("Folder3");
         folder3.setMessages("messages (13)");
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.folder);
+        folder3.setPhoto(bitmap2);
 
         folder4.setName("Folder4");
         folder4.setMessages("messages (29)");
+        Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(),R.drawable.folder);
+        folder4.setPhoto(bitmap3);
 
         folders.add(folder1);
         folders.add(folder2);
@@ -146,10 +159,16 @@ public class FoldersActivity extends AppCompatActivity {
 
                 try {
                     String fileName = "drawable";
+                    Bitmap mBitmap = folder.getPhoto();
+
 
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+
 
                     FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+
 
                     fileOutputStream.write(bytes.toByteArray());
                     fileOutputStream.close();
@@ -211,7 +230,7 @@ public class FoldersActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_create_folder:
-                Intent in = new Intent(this, CreateEmailActivity.class);
+                Intent in = new Intent(this, CreateFolderActivity.class);
                 Toast.makeText(getBaseContext(), "Create folder" , Toast.LENGTH_SHORT ).show();
                 startActivity(in);
                 return true;

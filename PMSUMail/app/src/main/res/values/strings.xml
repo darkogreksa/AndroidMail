@@ -51,4 +51,8 @@
     <string name="create_folder">Create folder</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
+    <string name="replay">Replay</string>
+    <string name="replay_all">Replay all</string>
+    <string name="forward">Forward</string>
+    <string name="delete">Delete</string>
 </resources>

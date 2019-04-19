@@ -8,10 +8,12 @@ public class NavItem implements Parcelable {
     private String mSubtitle;
     private int mIcon;
 
+
     public NavItem(String title, String subtitle, int icon) {
         mTitle = title;
         mSubtitle = subtitle;
         mIcon = icon;
+
     }
 
     protected NavItem(Parcel in) {

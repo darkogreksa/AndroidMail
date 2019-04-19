@@ -2,6 +2,8 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -100,30 +102,48 @@ public class EmailsActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
             }
+
+
         };
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(EmailsActivity.this, CreateEmailActivity.class);
+                startActivity(i);
                 Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();
+
             }
         });
 
-        email1.setFrom("Amelie");
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+
+
+        email1.setFrom("Paul");
         email1.setContent(":Message...");
         email1.setDateTime(new Date());
+        email1.setTo("Paul");
+        email1.setSubject("Subject");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.paul);
+        email1.setPhoto(bitmap);
 
         email2.setContent(":Message...");
-        email2.setFrom("Carl");
+        email2.setFrom("Amelie");
         email2.setDateTime(new Date());
+        email2.setTo("Carl");
+        email2.setSubject("Subject");
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.amelie);
+        email2.setPhoto(bitmap1);
 
         email3.setContent(":Message...");
-        email3.setFrom("Kole");
+        email3.setFrom("Carl");
         email3.setDateTime(new Date());
+        email3.setTo("Carl");
+        email3.setSubject("Subject");
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.carl);
+        email3.setPhoto(bitmap2);
 
 
         emails.add(email1);
@@ -143,20 +163,25 @@ public class EmailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
                 intent.putExtra("Content", email.getContent());
                 intent.putExtra("From", email.getFrom());
+                intent.putExtra("To", email.getTo());
+                intent.putExtra("Subject", email.getSubject());
+                intent.putExtra("Date time", email.getDateTime());
 
                 try {
                     String fileName = "drawable";
+                    Bitmap mBitmap = email.getPhoto();
 
 
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
 
                     FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-
+                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
 
                     fileOutputStream.write(bytes.toByteArray());
                     fileOutputStream.close();
 
+                    intent.putExtra("photo",fileName);
 
                 }catch (Exception e){
                     e.printStackTrace();

@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              tools:context=".EmailActivity"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/toolbar"
-		android:layout_marginTop="0dp"
-		android:orientation="vertical"
-		android:padding="15dp">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-		<EditText
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:inputType="textEmailSubject"
-			android:text="Email " />
+        <!-- Add this, so AppBarLayout has a bug, which causes ViewPager not to show listview entirely on the screen
+        Adding this view fixes (workaround) the problem -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/design_default_color_primary_dark" />
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways">
+        </android.support.v7.widget.Toolbar>
 
-		<EditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="40dp"
-			android:background="@null"
-			android:hint="@string/email"/>
-	</LinearLayout>
-	<include
-			android:id="@+id/toolbar"
-			layout="@layout/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
 
-	<TextView
-			android:id="@+id/email_text"
-			android:layout_marginTop="30dp"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+    <include layout="@layout/email_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

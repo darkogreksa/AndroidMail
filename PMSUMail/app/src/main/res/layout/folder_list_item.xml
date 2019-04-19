@@ -13,10 +13,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+
+
             <TextView
                 android:id="@+id/folder_name_view"
-                android:layout_width="287dp"
+                android:layout_width="247dp"
                 android:layout_height="101dp"
+                android:layout_toRightOf="@id/image_view"
                 android:background="@color/white"
                 android:gravity="center"
                 android:textColor="@color/black"

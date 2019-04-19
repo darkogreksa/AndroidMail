@@ -1,38 +1,47 @@
 package com.example.pmsumail;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private NavigationView navigation;
-    private Toolbar toolbar;
-    private ImageView btnLogout;
-    private TextView toolbarText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        initView();
 
+
+        Toolbar toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
     }
 
-    private void initView(){
-        toolbar = findViewById(R.id.toolbar);
-        btnLogout = toolbar.findViewById(R.id.button_one);
-        toolbarText = toolbar.findViewById(R.id.toolbar_text);
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_item_profile, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                Intent i = new Intent(this, LoginActivity.class);
+                Toast.makeText(getBaseContext(), "Log out" , Toast.LENGTH_SHORT ).show();
+                startActivity(i);
+                return true;
+        }
 
-        btnLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon));
-        toolbarText.setText("Profile");
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

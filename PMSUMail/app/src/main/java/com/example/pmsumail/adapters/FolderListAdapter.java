@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pmsumail.R;
@@ -30,9 +31,13 @@ public class FolderListAdapter extends ArrayAdapter<Folder> {
 
         TextView folder_name_view = view.findViewById(R.id.folder_name_view);
         TextView number_of_messages = view.findViewById(R.id.number_of_messages);
+        ImageView image_view = view.findViewById(R.id.image_view);
+
 
         folder_name_view.setText(folder.getName());
         number_of_messages.setText(folder.getMessages());
+        image_view.setImageBitmap(folder.getPhoto());
+
 
 
 
