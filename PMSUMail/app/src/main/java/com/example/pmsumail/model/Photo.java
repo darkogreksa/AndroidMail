@@ -4,14 +4,31 @@ import android.graphics.Bitmap;
 
 public class Photo {
     private int id;
-    private Bitmap photo;
+    private String path;
+    private Bitmap bitmap;
 
     public Photo() {
     }
 
-    public Photo(int id, Bitmap photo) {
+    public Photo(int id,String path) {
         this.id = id;
-        this.photo = photo;
+        this.path = path;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getId() {
@@ -22,11 +39,4 @@ public class Photo {
         this.id = id;
     }
 
-    public Bitmap getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
-    }
 }

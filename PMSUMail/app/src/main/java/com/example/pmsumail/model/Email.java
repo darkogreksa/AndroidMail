@@ -7,51 +7,38 @@ import java.util.Date;
 
 public class Email {
     private int id;
-    private String from;
-    private String to;
-    private String cc;
-    private String bcc;
+    private Contact from;
+    private Contact to;
+    private Account account;
+    private Folder folder;
     private Date dateTime;
     private String subject;
     private String content;
-    private Bitmap photo;
     private ArrayList<Attachment> attachments;
     private ArrayList<Tag> tags;
 
     public Email() {
     }
 
-    public Email(int id, String from, String to, String cc, String bcc, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
+    public Email(int id, Contact from, Contact to,Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.id = id;
         this.from = from;
         this.to = to;
-        this.cc = cc;
-        this.bcc = bcc;
         this.dateTime = dateTime;
         this.subject = subject;
         this.content = content;
         this.attachments = attachments;
         this.tags = tags;
     }
-    public Email(String from, String to, String cc, String bcc,String subject, String content, Date dateTime, Bitmap photo) {
+    public Email(Contact from, Contact to, String cc, String bcc,String subject, String content, Date dateTime, Bitmap photo) {
         this.from = from;
         this.to = to;
-        this.cc = cc;
-        this.bcc = bcc;
         this.subject = subject;
         this.content = content;
         this.dateTime = dateTime;
-        this.photo = photo;
     }
 
 
-    public Bitmap getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
-    }
 
     public int getId() {
         return id;
@@ -61,36 +48,36 @@ public class Email {
         this.id = id;
     }
 
-    public String getFrom() {
+    public Contact getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(Contact from) {
         this.from = from;
     }
 
-    public String getTo() {
+    public Contact getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(Contact to) {
         this.to = to;
     }
 
-    public String getCc() {
-        return cc;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setCc(String cc) {
-        this.cc = cc;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public String getBcc() {
-        return bcc;
+    public Folder getFolder() {
+        return folder;
     }
 
-    public void setBcc(String bcc) {
-        this.bcc = bcc;
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 
     public Date getDateTime() {

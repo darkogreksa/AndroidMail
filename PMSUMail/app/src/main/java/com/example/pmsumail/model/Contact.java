@@ -1,40 +1,34 @@
 package com.example.pmsumail.model;
 
-import android.graphics.Bitmap;
-
-import java.util.ArrayList;
-
 public class Contact {
+    public enum Format {
+        PLAIN,
+        HTML
+    }
     private int id;
     private String firstname;
     private String lastname;
     private String display;
     private String email;
-    private Bitmap photo;
-    private ArrayList<Email> emails;
+    private Photo photo;
+    private Format f;
 
     public Contact() {
     }
 
-    public Contact(int id, String firstname, String lastname, String display, String email, Bitmap photo, ArrayList<Email> emails) {
+        public Contact(int id, String firstname, String lastname, String display, String email,Photo photo, Format f ){
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.display = display;
         this.email = email;
         this.photo = photo;
-        this.emails = emails;
+        this.f = f;
     }
 
-    public ArrayList<Email> getEmails() {
-        return emails;
-    }
 
-    public void setEmails(ArrayList<Email> emails) {
-        this.emails = emails;
-    }
 
-    public Contact(String firstname, String lastname, String display, String email, Bitmap photo) {
+    public Contact(String firstname, String lastname, String display, String email, Photo photo) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.display = display;
@@ -50,10 +44,20 @@ public class Contact {
         this.display = display;
     }
 
-    public Bitmap getPhoto() { return photo;
+    public Photo getPhoto() {
+        return photo;
     }
 
-    public void setPhoto(Bitmap photo) { this.photo = photo;
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public Format getF() {
+        return f;
+    }
+
+    public void setF(Format f) {
+        this.f = f;
     }
 
     public int getId() {

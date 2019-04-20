@@ -1,45 +1,43 @@
 package com.example.pmsumail.model;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 
 public class Folder {
 
     private int id;
-    private Bitmap photo;
     private String name;
-    private String messages;
+    private Rule rule;
+    private Folder subfolder;
     private ArrayList<Email> emails;
-    private ArrayList<Folder> folders;
 
 
     public Folder() {
     }
 
-    public Folder(int id, String name, String messages, Bitmap photo, ArrayList<Email> emails, ArrayList<Folder> folders) {
+    public Folder(int id, String name, ArrayList<Email> emails,Folder subfolder, Rule rule) {
         this.id = id;
         this.name = name;
-        this.messages = messages;
         this.emails = emails;
-        this.folders = folders;
-        this.photo = photo;
+        this.subfolder = subfolder;
+        this.rule = rule;
     }
 
-    public Bitmap getPhoto() {
-        return photo;
+
+
+    public Rule getRule() {
+        return rule;
     }
 
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
+    public void setRule(Rule rule) {
+        this.rule = rule;
     }
 
-    public ArrayList<Folder> getFolders() {
-        return folders;
+    public Folder getSubfolder() {
+        return subfolder;
     }
 
-    public void setFolders(ArrayList<Folder> folders) {
-        this.folders = folders;
+    public void setSubfolder(Folder subfolder) {
+        this.subfolder = subfolder;
     }
 
     public ArrayList<Email> getEmails() {
@@ -68,12 +66,6 @@ public class Folder {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMessages() { return messages; }
-
-    public void setMessages(String messages) {
-        this.messages = messages;
     }
 
 

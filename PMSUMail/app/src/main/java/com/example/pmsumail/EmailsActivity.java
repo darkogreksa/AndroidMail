@@ -2,8 +2,6 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -29,7 +27,6 @@ import com.example.pmsumail.model.NavItem;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EmailsActivity extends AppCompatActivity {
 
@@ -38,15 +35,11 @@ public class EmailsActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
-    private ArrayList<Email> emails = new ArrayList<Email>();
+
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
     private EmailListAdapter emailListAdapter;
 
-    private Email email1 = new Email();
-    private Email email2 = new Email();
-    private Email email3  = new Email();
-    private Email email4 = new Email();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,77 +114,31 @@ public class EmailsActivity extends AppCompatActivity {
 
 
 
-        email1.setFrom("Paul");
-        email1.setContent(":Message...");
-        email1.setDateTime(new Date());
-        email1.setTo("Paul");
-        email1.setSubject("Subject");
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.paul);
-        email1.setPhoto(bitmap);
 
-        email2.setContent(":Message...");
-        email2.setFrom("Amelie");
-        email2.setDateTime(new Date());
-        email2.setTo("Carl");
-        email2.setSubject("Subject");
-        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.amelie);
-        email2.setPhoto(bitmap1);
-
-        email3.setContent(":Message...");
-        email3.setFrom("Carl");
-        email3.setDateTime(new Date());
-        email3.setTo("Carl");
-        email3.setSubject("Subject");
-        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.carl);
-        email3.setPhoto(bitmap2);
-
-        email4.setContent(":Message...");
-        email4.setFrom("Deborah");
-        email4.setDateTime(new Date());
-        email4.setTo("Carl");
-        email4.setSubject("Subject");
-        Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(),R.drawable.deborah);
-        email4.setPhoto(bitmap3);
-
-
-        emails.add(email1);
-        emails.add(email2);
-        emails.add(email3);
-        emails.add(email4);
-
-
-
-        emailListAdapter = new EmailListAdapter(this, emails);
+        emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
         final ListView listView = findViewById(R.id.emails_list);
         listView.setAdapter(emailListAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Email email = emails.get(i);
+                Email email = UtilsDummyModels.getMockEmails(EmailsActivity.this).get(i);
 
                 Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
                 intent.putExtra("Content", email.getContent());
-                intent.putExtra("From", email.getFrom());
-                intent.putExtra("To", email.getTo());
-                intent.putExtra("Subject", email.getSubject());
-                intent.putExtra("Date time", email.getDateTime());
+                intent.putExtra("From", email.getFrom().getFirstname() + " " + email.getFrom().getLastname());
 
                 try {
                     String fileName = "drawable";
-                    Bitmap mBitmap = email.getPhoto();
 
 
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
 
                     FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-                    mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
 
                     fileOutputStream.write(bytes.toByteArray());
                     fileOutputStream.close();
 
-                    intent.putExtra("photo",fileName);
 
                 }catch (Exception e){
                     e.printStackTrace();

@@ -11,19 +11,19 @@ import android.widget.TextView;
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Contact;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ContactListAdapter extends ArrayAdapter<Contact> {
 
-    public ContactListAdapter(Context context, ArrayList<Contact> contacts){
-        super(context,0,contacts);
+    public ContactListAdapter(Context context, List<Contact> contacts) {
+        super(context, 0, contacts);
     }
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         Contact contact = getItem(position);
 
-        if(view == null) {
+        if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.contact_list_item, viewGroup, false);
         }
 
@@ -31,7 +31,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         ImageView image_view = view.findViewById(R.id.image_view);
 
         contact_name_view.setText(contact.getFirstname());
-        image_view.setImageBitmap(contact.getPhoto());
+        image_view.setImageBitmap(contact.getPhoto().getBitmap());
 
         return view;
     }

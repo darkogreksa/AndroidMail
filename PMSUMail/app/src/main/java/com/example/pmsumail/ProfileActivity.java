@@ -2,15 +2,21 @@ package com.example.pmsumail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class ProfileActivity extends AppCompatActivity {
+
+    private NavigationView navigation;
+    private TextView textViewUsername;
+    private TextView textViewEmail;
 
 
 
@@ -18,18 +24,27 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        //initView();
 
 
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
     }
 
-
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_item_profile, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
+/*
+    private void initView() {
+        textViewUsername = findViewById(R.id.text_view_username);
+        textViewEmail = findViewById(R.id.email_text_view);
+        textViewUsername.setText("Username: " + UtilsDummyModels.getMockedAccount().getUsername());
+        textViewEmail.setText("Email: " + UtilsDummyModels.getMockedAccount().getEmails());
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

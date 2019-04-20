@@ -5,21 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Email;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class EmailListAdapter extends ArrayAdapter<Email> {
 
     private  Email email;
 
 
-    public EmailListAdapter(Context context, ArrayList<Email> emails) {
+    public EmailListAdapter(Context context, List<Email> emails) {
         super(context, 0, emails);
     }
 
@@ -34,15 +33,15 @@ public class EmailListAdapter extends ArrayAdapter<Email> {
         TextView email_context_view = view.findViewById(R.id.email_context_view);
         TextView email_from_view = view.findViewById(R.id.email_name_view);
         TextView date_messages = view.findViewById(R.id.date_messages);
-        ImageView image_view = view.findViewById(R.id.image_view);
 
         email_context_view.setText(email.getContent());
-        email_from_view.setText(email.getFrom());
+
+        email_from_view.setText(email.getFrom().getFirstname() + " " + email.getFrom().getLastname());
+
 
         SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDate.format(email.getDateTime());
         date_messages.setText(date);
-        image_view.setImageBitmap(email.getPhoto());
 
 
 

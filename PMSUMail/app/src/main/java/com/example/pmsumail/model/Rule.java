@@ -1,6 +1,21 @@
 package com.example.pmsumail.model;
 
 public class Rule {
+
+
+    public enum Condition {
+        TO,
+        FROM,
+        CC,
+        SUBJECT
+    }
+
+    public enum Operation {
+        MOVE,
+        COPY,
+        PASTE
+    }
+
     private int id;
     private Condition condition;
     private Operation operation;
@@ -13,6 +28,7 @@ public class Rule {
         this.condition = condition;
         this.operation = operation;
     }
+
 
     public int getId() {
         return id;
