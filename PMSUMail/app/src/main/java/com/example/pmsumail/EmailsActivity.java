@@ -145,10 +145,20 @@ public class EmailsActivity extends AppCompatActivity {
         Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.carl);
         email3.setPhoto(bitmap2);
 
+        email4.setContent(":Message...");
+        email4.setFrom("Deborah");
+        email4.setDateTime(new Date());
+        email4.setTo("Carl");
+        email4.setSubject("Subject");
+        Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(),R.drawable.deborah);
+        email4.setPhoto(bitmap3);
+
 
         emails.add(email1);
         emails.add(email2);
         emails.add(email3);
+        emails.add(email4);
+
 
 
         emailListAdapter = new EmailListAdapter(this, emails);
