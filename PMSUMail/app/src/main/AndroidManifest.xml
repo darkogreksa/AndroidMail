@@ -11,17 +11,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CreateContactActivity" />
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".ContactsActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".FolderActivity" />
-        <activity android:name=".FoldersActivity" />
-        <activity android:name=".EmailActivity" />
-        <activity android:name=".EmailsActivity" />
-        <activity android:name=".CreateFolderActivity" />
-        <activity android:name=".CreateEmailActivity" />
+        <activity
+            android:name=".CreateContactActivity"
+            android:label="@string/createContactActivity"/>
+        <activity
+            android:name=".ContactActivity"
+            android:label="@string/contactActivity"/>
+        <activity
+            android:name=".ContactsActivity"
+            android:label="@string/contactsActivity"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/profileActivity"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settingsActivity"/>
+        <activity
+            android:name=".FolderActivity"
+            android:label="@string/folderActivity"/>
+        <activity
+            android:name=".FoldersActivity"
+            android:label="@string/foldersActivity"/>
+        <activity
+            android:name=".EmailActivity"
+            android:label="@string/emailActivity"/>
+        <activity
+            android:name=".EmailsActivity"
+            android:label="@string/emailsActivity"/>
+        <activity
+            android:name=".CreateFolderActivity"
+            android:label="@string/createFolderActivity"/>
+        <activity
+            android:name=".CreateEmailActivity"
+            android:label="@string/createEmailActivity"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

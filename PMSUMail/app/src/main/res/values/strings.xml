@@ -73,4 +73,15 @@
     <string name="forward">Forward</string>
     <string name="delete">Delete</string>
     <string name="edit_folder">Edit folder</string>
+    <string name="createContactActivity">Create contact</string>
+    <string name="contactActivity">Contact</string>
+    <string name="contactsActivity">Contacts</string>
+    <string name="profileActivity">Profile</string>
+    <string name="settingsActivity">Settings</string>
+    <string name="folderActivity">Folder</string>
+    <string name="foldersActivity">Folders</string>
+    <string name="emailActivity">Email</string>
+    <string name="emailsActivity">Emails</string>
+    <string name="createFolderActivity">Create folder</string>
+    <string name="createEmailActivity">Create email</string>
 </resources>
