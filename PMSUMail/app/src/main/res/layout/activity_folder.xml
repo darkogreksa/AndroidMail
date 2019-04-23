@@ -31,7 +31,33 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
         <!-- The main content view -->
+        <RelativeLayout
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                app:srcCompat="@drawable/ic_create_black_24dp"
+                android:backgroundTint="@color/design_default_color_primary"/>
 
             <RelativeLayout
                 android:id="@+id/main_content"
@@ -48,7 +74,7 @@
                         android:layout_height="wrap_content">
 
                         <ListView
-                            android:id="@+id/emails_list"
+                            android:id="@+id/folder_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:choiceMode="singleChoice"/>
@@ -58,5 +84,54 @@
                 </ScrollView>
 
             </RelativeLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+        <!-- The navigation drawer -->
+        <RelativeLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:id="@+id/drawerPane"
+            android:layout_gravity="start">
+
+            <!-- Profile Box -->
+
+            <LinearLayout
+                android:id="@+id/profileBox"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@drawable/side_nav_bar"
+                android:gravity="bottom"
+                android:padding="16dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="User 1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View profile" />
+
+            </LinearLayout>
+
+            <!-- List of Actions (pages) -->
+            <ListView
+                android:id="@+id/navList"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/profileBox"
+                android:choiceMode="singleChoice"
+                android:background="#ffffffff" />
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
 
 </LinearLayout>

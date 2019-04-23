@@ -32,12 +32,31 @@ public class UtilsDummyModels {
         email2.setAccount(new Account());
         email2.setAttachments((ArrayList<Attachment>) getMockedAttachment());
         email2.setAccount(getMockedAccount());
-        email2.setContent("Test content 1");
+        email2.setContent("Test content 2");
         email2.setFrom(getMockedContactPera(context));
         email2.setDateTime(new Date());
 
+        Email email3 = new Email();
+        email3.setAccount(new Account());
+        email3.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        email3.setAccount(getMockedAccount());
+        email3.setContent("Test content 3");
+        email3.setFrom(getMockedContactCosko(context));
+        email3.setDateTime(new Date());
+
+        Email email4 = new Email();
+        email4.setAccount(new Account());
+        email4.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        email4.setAccount(getMockedAccount());
+        email4.setContent("Test content 4");
+        email4.setFrom(getMockedContactHoblo(context));
+        email4.setDateTime(new Date());
+
+
         emailList.add(email);
         emailList.add(email2);
+        emailList.add(email3);
+        emailList.add(email4);
         return emailList;
     }
 
@@ -67,11 +86,40 @@ public class UtilsDummyModels {
         return contact;
     }
 
+    public static Contact getMockedContactCosko(Context context) {
+        List<Contact> contactList = new ArrayList<>();
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.deborah);
+
+        Contact contact = new Contact();
+        contact.setPhoto(new Photo());
+        contact.setFirstname("Cosko");
+        contact.setLastname("Coskovic");
+        contact.setEmail("cosko@gmail.com");
+        contact.getPhoto().setBitmap(bitmap);
+        return contact;
+    }
+
+    public static Contact getMockedContactHoblo(Context context) {
+        List<Contact> contactList = new ArrayList<>();
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.paul);
+
+        Contact contact = new Contact();
+        contact.setPhoto(new Photo());
+        contact.setFirstname("Hoblo");
+        contact.setLastname("Hoblovic");
+        contact.setEmail("hoblo@gmail.com");
+        contact.getPhoto().setBitmap(bitmap);
+        return contact;
+    }
+
+
     public static List<Contact> getMockedContacts(Context context){
         List<Contact> contactList = new ArrayList<>();
 
         contactList.add(getMockedContactPera(context));
         contactList.add(getMockedContactStefan(context));
+        contactList.add(getMockedContactCosko(context));
+        contactList.add(getMockedContactHoblo(context));
 
         return  contactList;
 
@@ -114,8 +162,29 @@ public class UtilsDummyModels {
 
         return folderList;
     }
+    public  static List<Email> getMockedMessages(Context context){
+        List<Email> messagesList = new ArrayList<>();
 
+        Email messages = new Email();
+        messages.setAccount(new Account());
+        messages.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        messages.setAccount(getMockedAccount());
+        messages.setContent("Test content 1");
+        messages.setFrom(getMockedContactPera(context));
+        messages.setDateTime(new Date());
 
+        Email messages2 = new Email();
+        messages2.setAccount(new Account());
+        messages2.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        messages2.setAccount(getMockedAccount());
+        messages2.setContent("Test content 1");
+        messages2.setFrom(getMockedContactPera(context));
+        messages2.setDateTime(new Date());
+
+        messagesList.add(messages);
+        messagesList.add(messages);
+        return messagesList;
+    }
 
 
 }
