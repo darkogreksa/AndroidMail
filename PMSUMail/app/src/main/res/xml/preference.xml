@@ -20,6 +20,13 @@
             android:title="@string/pref_sort_messages_by_date_title"
             android:summary="%s"/>
 
+        <ListPreference
+            android:entries="@array/pref_syncRefreshingType_entries"
+            android:entryValues="@array/pref_syncRefreshingType_values"
+            android:key="@string/pref_refresh_messages_by_date_key_list"
+            android:title="@string/pref_refresh_messages"
+            android:summary="%s"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
