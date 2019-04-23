@@ -84,4 +84,5 @@
     <string name="emailsActivity">Emails</string>
     <string name="createFolderActivity">Create folder</string>
     <string name="createEmailActivity">Create email</string>
+    <string name="addPhoto">Add photo</string>
 </resources>
