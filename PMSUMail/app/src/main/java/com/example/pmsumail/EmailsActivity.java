@@ -2,7 +2,9 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -21,12 +23,21 @@ import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.EmailListAdapter;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.ServiceUtils;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.pmsumail.service.ServiceUtils.messageService;
 
 public class EmailsActivity extends AppCompatActivity {
 
@@ -35,6 +46,12 @@ public class EmailsActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
+    private List<Message> messages = new ArrayList<>();
+    private ListView listView;
+    private SharedPreferences sharedPreferences;
+    private String userPref;
+    private Message message = new Message();
+    private boolean sortMessages;
 
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
@@ -122,11 +139,11 @@ public class EmailsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Email email = UtilsDummyModels.getMockEmails(EmailsActivity.this).get(i);
+                Message message = UtilsDummyModels.getMockEmails(EmailsActivity.this).get(i);
 
                 Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
-                intent.putExtra("Content", email.getContent());
-                intent.putExtra("From", email.getFrom().getFirstname() + " " + email.getFrom().getLastname());
+                intent.putExtra("Content", message.getContent());
+                intent.putExtra("From", message.getFrom().getFirstname() + " " + message.getFrom().getLastname());
 
                 try {
                     String fileName = "drawable";
@@ -147,7 +164,122 @@ public class EmailsActivity extends AppCompatActivity {
             }
         });
 
+        //Dodato zbog servisa
+        TextView userText = findViewById(R.id.userName);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
+        if(sharedPreferences.contains(LoginActivity.Username)){
+            userText.setText(sharedPreferences.getString(LoginActivity.Name, ""));
+        }
+        userPref = sharedPreferences.getString(LoginActivity.Username, "");
+
+        messageService = ServiceUtils.messageService;
+//        userService = ServiceUtils.userService;
+
+        Call call = messageService.getMessages();
+
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+
+                if(response.isSuccessful()){
+                    messages = response.body();
+                    listView.setAdapter(new EmailListAdapter(EmailsActivity.this, messages));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                message = messages.get(i);
+
+                messageService = ServiceUtils.messageService;
+                Call<Message> call = messageService.getMessage(message.getId());
+
+                call.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+
+                        if (response.isSuccessful()){
+                            message = response.body();
+                            Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
+                            intent.putExtra("Post", new Gson().toJson(message));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        consultPreferences();
     }
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+
+    //Dodato zbog servisa
+    private void consultPreferences(){
+        sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_title),false);
+        if(sortMessages == true) {
+            sortDate();
+        }
+    }
+
+    //Dodato zbog servisa
+    private void sortDate(){
+        Call<List<Message>> callMessage = messageService.sortMessages();
+
+        callMessage.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                messages = response.body();
+
+                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    //Dodato zbog servisa
+    public void getMessage(){
+        Call<List<Message>> call = messageService.getMessages();
+
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                messages = response.body();
+                EmailListAdapter emailListAdapter = new EmailListAdapter(EmailsActivity.this, messages);
+                listView.setAdapter(emailListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 
     //listener koji prihvata informaciju koja pozicija u draweru je kliknuta
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -181,12 +313,12 @@ public class EmailsActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
-    //tekst koji se ispisuje na toolbar-u
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
-    }
+//    //tekst koji se ispisuje na toolbar-u
+//    @Override
+//    public void setTitle(CharSequence title) {
+//        mTitle = title;
+//        getSupportActionBar().setTitle(mTitle);
+//    }
 
     //meni na toolbaru, odnosno ikonice za prelazak na ostale aktivnosti
     @Override

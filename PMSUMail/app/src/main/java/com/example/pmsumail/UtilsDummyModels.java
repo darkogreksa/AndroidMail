@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import com.example.pmsumail.model.Account;
 import com.example.pmsumail.model.Attachment;
 import com.example.pmsumail.model.Contact;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Folder;
 import com.example.pmsumail.model.Photo;
 
@@ -17,47 +17,47 @@ import java.util.List;
 
 public class UtilsDummyModels {
 
-    public static List<Email> getMockEmails(Context context) {
-        List<Email> emailList = new ArrayList<>();
+    public static List<Message> getMockEmails(Context context) {
+        List<Message> messageList = new ArrayList<>();
 
-        Email email = new Email();
-        email.setAccount(new Account());
-        email.setAttachments((ArrayList<Attachment>) getMockedAttachment());
-        email.setAccount(getMockedAccount());
-        email.setContent("Test content 1");
-        email.setFrom(getMockedContactPera(context));
-        email.setDateTime(new Date());
+        Message message = new Message();
+        message.setAccount(new Account());
+        message.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        message.setAccount(getMockedAccount());
+        message.setContent("Test content 1");
+        message.setFrom(getMockedContactPera(context));
+        message.setDateTime(new Date());
 
-        Email email2 = new Email();
-        email2.setAccount(new Account());
-        email2.setAttachments((ArrayList<Attachment>) getMockedAttachment());
-        email2.setAccount(getMockedAccount());
-        email2.setContent("Test content 2");
-        email2.setFrom(getMockedContactPera(context));
-        email2.setDateTime(new Date());
+        Message message2 = new Message();
+        message2.setAccount(new Account());
+        message2.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        message2.setAccount(getMockedAccount());
+        message2.setContent("Test content 2");
+        message2.setFrom(getMockedContactPera(context));
+        message2.setDateTime(new Date());
 
-        Email email3 = new Email();
-        email3.setAccount(new Account());
-        email3.setAttachments((ArrayList<Attachment>) getMockedAttachment());
-        email3.setAccount(getMockedAccount());
-        email3.setContent("Test content 3");
-        email3.setFrom(getMockedContactCosko(context));
-        email3.setDateTime(new Date());
+        Message message3 = new Message();
+        message3.setAccount(new Account());
+        message3.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        message3.setAccount(getMockedAccount());
+        message3.setContent("Test content 3");
+        message3.setFrom(getMockedContactCosko(context));
+        message3.setDateTime(new Date());
 
-        Email email4 = new Email();
-        email4.setAccount(new Account());
-        email4.setAttachments((ArrayList<Attachment>) getMockedAttachment());
-        email4.setAccount(getMockedAccount());
-        email4.setContent("Test content 4");
-        email4.setFrom(getMockedContactHoblo(context));
-        email4.setDateTime(new Date());
+        Message message4 = new Message();
+        message4.setAccount(new Account());
+        message4.setAttachments((ArrayList<Attachment>) getMockedAttachment());
+        message4.setAccount(getMockedAccount());
+        message4.setContent("Test content 4");
+        message4.setFrom(getMockedContactHoblo(context));
+        message4.setDateTime(new Date());
 
 
-        emailList.add(email);
-        emailList.add(email2);
-        emailList.add(email3);
-        emailList.add(email4);
-        return emailList;
+        messageList.add(message);
+        messageList.add(message2);
+        messageList.add(message3);
+        messageList.add(message4);
+        return messageList;
     }
 
     public static Contact getMockedContactPera(Context context) {
@@ -150,11 +150,11 @@ public class UtilsDummyModels {
         List<Folder> folderList = new ArrayList<>();
 
         Folder folder = new Folder();
-        folder.setEmails((ArrayList<Email>) getMockEmails(context));
+        folder.setMessages((ArrayList<Message>) getMockEmails(context));
         folder.setName("Folder name1");
 
         Folder folder2 = new Folder();
-        folder2.setEmails((ArrayList<Email>) getMockEmails(context));
+        folder2.setMessages((ArrayList<Message>) getMockEmails(context));
         folder2.setName("Folder name1");
 
         folderList.add(folder);
@@ -162,10 +162,10 @@ public class UtilsDummyModels {
 
         return folderList;
     }
-    public  static List<Email> getMockedMessages(Context context){
-        List<Email> messagesList = new ArrayList<>();
+    public  static List<Message> getMockedMessages(Context context){
+        List<Message> messagesList = new ArrayList<>();
 
-        Email messages = new Email();
+        Message messages = new Message();
         messages.setAccount(new Account());
         messages.setAttachments((ArrayList<Attachment>) getMockedAttachment());
         messages.setAccount(getMockedAccount());
@@ -173,7 +173,7 @@ public class UtilsDummyModels {
         messages.setFrom(getMockedContactPera(context));
         messages.setDateTime(new Date());
 
-        Email messages2 = new Email();
+        Message messages2 = new Message();
         messages2.setAccount(new Account());
         messages2.setAttachments((ArrayList<Attachment>) getMockedAttachment());
         messages2.setAccount(getMockedAccount());

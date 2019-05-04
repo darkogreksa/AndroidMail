@@ -121,7 +121,7 @@ public class ContactsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
                 intent.putExtra("First name", contact.getFirstname());
                 intent.putExtra("Last name", contact.getLastname());
-                intent.putExtra("Email", contact.getEmail());
+                intent.putExtra("Message", contact.getEmail());
 
                 try {
                     String fileName = "drawable";

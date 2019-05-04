@@ -33,7 +33,7 @@ public class CreateEmailActivity extends AppCompatActivity {
 
         btnSend.setImageDrawable(getResources().getDrawable(R.drawable.ic_send));
         btnCancel.setImageDrawable(getResources().getDrawable(R.drawable.ic_cancel));
-        toolbarText.setText("Create email");
+        toolbarText.setText("Create message");
 
     }
 

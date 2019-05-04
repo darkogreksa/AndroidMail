@@ -21,19 +21,19 @@ public class Attachment {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("emails")
+    @SerializedName("messages")
     @Expose
-    private ArrayList<Email> emails;
+    private ArrayList<Message> messages;
 
     public Attachment() {
     }
 
-    public Attachment(int id, Base64 data, String type, String name, ArrayList<Email> emails) {
+    public Attachment(int id, Base64 data, String type, String name, ArrayList<Message> messages) {
         this.id = id;
         this.data = data;
         this.type = type;
         this.name = name;
-        this.emails = emails;
+        this.messages = messages;
     }
 
     public int getId() {

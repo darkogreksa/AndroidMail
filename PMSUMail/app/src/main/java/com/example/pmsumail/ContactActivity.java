@@ -31,7 +31,7 @@ public class ContactActivity extends AppCompatActivity {
 
         firstname_view.setText(getIntent().getStringExtra("First name"));
         lastname_view.setText(getIntent().getStringExtra("Last name"));
-        email_view.setText(getIntent().getStringExtra("Email"));
+        email_view.setText(getIntent().getStringExtra("Message"));
     }
 
     //tekst koji se ispisuje na toolbar-u

@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.pmsumail.R;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 
 import java.util.ArrayList;
 
 public class EmailFragment extends Fragment {
     View view;
 
-    Email email = new Email();
-    ArrayList<Email> emails = new ArrayList<>();
+    Message message = new Message();
+    ArrayList<Message> messages = new ArrayList<>();
 
     public EmailFragment() {
     }

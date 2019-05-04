@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         textViewUsername = findViewById(R.id.text_view_username);
         textViewEmail = findViewById(R.id.email_text_view);
         textViewUsername.setText("Username: " + UtilsDummyModels.getMockedAccount().getUsername());
-        textViewEmail.setText("Email: " + UtilsDummyModels.getMockedAccount().getEmails());
+        textViewEmail.setText("Message: " + UtilsDummyModels.getMockedAccount().getMessages());
     }*/
 
     @Override

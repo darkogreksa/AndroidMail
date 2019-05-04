@@ -8,20 +8,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.pmsumail.R;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class MessagesListAdapter extends ArrayAdapter<Email> {
+public class MessagesListAdapter extends ArrayAdapter<Message> {
 
 
 
-    private Email messages;
+    private Message messages;
 
 
-    public MessagesListAdapter(Context context, List<Email> emails) {
-        super(context, 0, emails);
+    public MessagesListAdapter(Context context, List<Message> messages) {
+        super(context, 0, messages);
     }
 
     @Override

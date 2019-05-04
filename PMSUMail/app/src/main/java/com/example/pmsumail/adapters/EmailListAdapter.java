@@ -8,23 +8,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.pmsumail.R;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EmailListAdapter extends ArrayAdapter<Email> {
+public class EmailListAdapter extends ArrayAdapter<Message> {
 
-    private  Email email;
+    private Message message;
 
 
-    public EmailListAdapter(Context context, List<Email> emails) {
-        super(context, 0, emails);
+    public EmailListAdapter(Context context, List<Message> messages) {
+        super(context, 0, messages);
     }
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        email = getItem(position);
+        message = getItem(position);
 
         if(view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.email_list_item, viewGroup, false);
@@ -34,13 +34,13 @@ public class EmailListAdapter extends ArrayAdapter<Email> {
         TextView email_from_view = view.findViewById(R.id.email_name_view);
         TextView date_messages = view.findViewById(R.id.date_messages);
 
-        email_context_view.setText(email.getContent());
+        email_context_view.setText(message.getContent());
 
-        email_from_view.setText(email.getFrom().getFirstname() + " " + email.getFrom().getLastname());
+        email_from_view.setText(message.getFrom().getFirstname() + " " + message.getFrom().getLastname());
 
 
         SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
-        String date = simpleDate.format(email.getDateTime());
+        String date = simpleDate.format(message.getDateTime());
         date_messages.setText(date);
 
 

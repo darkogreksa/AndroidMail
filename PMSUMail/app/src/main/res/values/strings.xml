@@ -34,7 +34,7 @@
     <string name="pref_sort_messages_by_date_summary">Sort messages by date</string>
     <string name="pref_sort_messages_by_date_key_list">pref_sort_messages_by_date_key_list</string>
     <string name="pref_refresh_messages_by_date_key_list">pref_refresh_messages_by_date_key_list</string>
-    <string name="pref_refresh_messages">Refresh emails</string>
+    <string name="pref_refresh_messages">Refresh messages</string>
     <string name="title_activity_navigation_drawer">navigationDrawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -42,12 +42,12 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <!--Email activity-->
+    <!--Message activity-->
     <string name="send_to_email_hint">Send to</string>
     <string name="subject_email_hint">Subject</string>
     <string name="content_email_hint">Content…</string>
     <string name="cc_hint">cc</string>
-    <string name="button_send">Send email</string>
+    <string name="button_send">Send message</string>
     <string name="navigation_header">Navigation header</string>
     <string name="profile">Profile</string>
     <string name="folders">Folders</string>
@@ -83,6 +83,6 @@
     <string name="emailActivity">Email</string>
     <string name="emailsActivity">Emails</string>
     <string name="createFolderActivity">Create folder</string>
-    <string name="createEmailActivity">Create email</string>
+    <string name="createEmailActivity">Create message</string>
     <string name="addPhoto">Add photo</string>
 </resources>

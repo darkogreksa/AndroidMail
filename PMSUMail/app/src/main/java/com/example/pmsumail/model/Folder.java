@@ -19,18 +19,18 @@ public class Folder {
     @SerializedName("subfolder")
     @Expose
     private Folder subfolder;
-    @SerializedName("emails")
+    @SerializedName("messages")
     @Expose
-    private ArrayList<Email> emails;
+    private ArrayList<Message> messages;
 
 
     public Folder() {
     }
 
-    public Folder(int id, String name, ArrayList<Email> emails,Folder subfolder, Rule rule) {
+    public Folder(int id, String name, ArrayList<Message> messages, Folder subfolder, Rule rule) {
         this.id = id;
         this.name = name;
-        this.emails = emails;
+        this.messages = messages;
         this.subfolder = subfolder;
         this.rule = rule;
     }
@@ -53,12 +53,12 @@ public class Folder {
         this.subfolder = subfolder;
     }
 
-    public ArrayList<Email> getEmails() {
-        return emails;
+    public ArrayList<Message> getMessages() {
+        return messages;
     }
 
-    public void setEmails(ArrayList<Email> emails) {
-        this.emails = emails;
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
     }
 
     public Folder(String name) {

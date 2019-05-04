@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Email {
+public class Message {
 
     @SerializedName("id")
     @Expose
@@ -41,10 +41,10 @@ public class Email {
     @Expose
     private ArrayList<Tag> tags;
 
-    public Email() {
+    public Message() {
     }
 
-    public Email(int id, Contact from, Contact to,Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
+    public Message(int id, Contact from, Contact to, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -54,7 +54,7 @@ public class Email {
         this.attachments = attachments;
         this.tags = tags;
     }
-    public Email(Contact from, Contact to, String cc, String bcc,String subject, String content, Date dateTime, Bitmap photo) {
+    public Message(Contact from, Contact to, String cc, String bcc, String subject, String content, Date dateTime, Bitmap photo) {
         this.from = from;
         this.to = to;
         this.subject = subject;

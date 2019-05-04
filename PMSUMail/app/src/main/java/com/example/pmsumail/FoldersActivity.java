@@ -2,7 +2,9 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -23,10 +25,20 @@ import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.FolderListAdapter;
 import com.example.pmsumail.model.Folder;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.ServiceUtils;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.pmsumail.service.ServiceUtils.folderService;
+import static com.example.pmsumail.service.ServiceUtils.messageService;
 
 public class FoldersActivity extends AppCompatActivity {
 
@@ -36,6 +48,10 @@ public class FoldersActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
+    private List<Folder> folders = new ArrayList<>();
+    private Folder folder = new Folder();
+    private SharedPreferences sharedPreferences;
+    private ListView listView;
 
     private FolderListAdapter folderListAdapter;
 
@@ -143,9 +159,80 @@ public class FoldersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        folderService = ServiceUtils.folderService;
+
+        Call call = folderService.getFolders();
+
+        call.enqueue(new Callback<List<Folder>>() {
+            @Override
+            public void onResponse(Call<List<Folder>> call, Response<List<Folder>> response) {
+
+                if(response.isSuccessful()){
+                    folders = response.body();
+                    listView.setAdapter(new FolderListAdapter(FoldersActivity.this, folders));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Folder>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                folder = folders.get(i);
+
+                folderService = ServiceUtils.folderService;
+                Call<Folder> call = folderService.getFolder(folder.getId());
+
+                call.enqueue(new Callback<Folder>() {
+                    @Override
+                    public void onResponse(Call<Folder> call, Response<Folder> response) {
+
+                        if (response.isSuccessful()){
+                            folder = response.body();
+                            Intent intent = new Intent(FoldersActivity.this,FolderActivity.class);
+                            intent.putExtra("Folder", new Gson().toJson(folder));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Folder> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
 
+
+    //Dodato zbog servisa
+    public void getFolder(){
+        Call<List<Folder>> call = folderService.getFolders();
+
+        call.enqueue(new Callback<List<Folder>>() {
+            @Override
+            public void onResponse(Call<List<Folder>> call, Response<List<Folder>> response) {
+                folders = response.body();
+                FolderListAdapter folderListAdapter = new FolderListAdapter(FoldersActivity.this, folders);
+                listView.setAdapter(folderListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Folder>> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));

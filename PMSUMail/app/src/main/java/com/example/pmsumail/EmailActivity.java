@@ -1,6 +1,8 @@
 package com.example.pmsumail;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +12,26 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Account;
+import com.example.pmsumail.model.Message;
+import com.example.pmsumail.service.AccountService;
+import com.example.pmsumail.service.ContactService;
+import com.example.pmsumail.service.MessageService;
+import com.example.pmsumail.service.ServiceUtils;
+import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EmailActivity extends AppCompatActivity {
 
-    Email email = new Email();
+    Message message = new Message();
+    private Account account = new Account();
+    private MessageService messageService;
+    private AccountService accountService;
+    private SharedPreferences sharedPreferences;
+    String accountPrefe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,33 +41,49 @@ public class EmailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.mail_toolbar);
         setSupportActionBar(toolbar);
 
+        String json = null;
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            json = extras.getString("Message");
+        }
+        message = new Gson().fromJson(json, Message.class);
+        messageService = ServiceUtils.messageService;
 
-        TextView from_view = findViewById(R.id.from_view);
-        TextView to_view = findViewById(R.id.to_view);
-        TextView subject_view = findViewById(R.id.subject_view);
-        TextView cc_view = findViewById(R.id.cc_view);
-        TextView bc_view = findViewById(R.id.bc_view);
-        TextView content_view = findViewById(R.id.content_view);
+        accountService = ServiceUtils.accountService;
+
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
+
+        accountPrefe = sharedPreferences.getString(LoginActivity.Username, "");
+
+        Call<Account> call = accountService.getByUsername(accountPrefe);
+
+        call.enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                account = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+
+            }
+        });
 
 
-        from_view.setText(getIntent().getStringExtra("From"));
-        to_view.setText(getIntent().getStringExtra("To"));
-        subject_view.setText(getIntent().getStringExtra("Subject"));
-        cc_view.setText(getIntent().getStringExtra("CC"));
-        bc_view.setText(getIntent().getStringExtra("BC"));
-        content_view.setText(getIntent().getStringExtra("Content"));
-
-
-
-
-
-
-    }
-
-    @Override
-    public void setTitle(CharSequence title){
-        CharSequence mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+//        TextView from_view = findViewById(R.id.from_view);
+//        TextView to_view = findViewById(R.id.to_view);
+//        TextView subject_view = findViewById(R.id.subject_view);
+//        TextView cc_view = findViewById(R.id.cc_view);
+//        TextView bc_view = findViewById(R.id.bc_view);
+//        TextView content_view = findViewById(R.id.content_view);
+//
+//
+//        from_view.setText(getIntent().getStringExtra("From"));
+//        to_view.setText(getIntent().getStringExtra("To"));
+//        subject_view.setText(getIntent().getStringExtra("Subject"));
+//        cc_view.setText(getIntent().getStringExtra("CC"));
+//        bc_view.setText(getIntent().getStringExtra("BC"));
+//        content_view.setText(getIntent().getStringExtra("Content"));
     }
 
     @Override
@@ -77,11 +110,29 @@ public class EmailActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Forward" , Toast.LENGTH_SHORT ).show();
                 return true;
             case R.id.action_delete:
-                Toast.makeText(getBaseContext(), "Delete" , Toast.LENGTH_SHORT ).show();
-                return true;
+                deleteMessage();
+                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, EmailsActivity.class);
+                startActivity(intent);
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void deleteMessage() {
+        Call<Message> call = messageService.deleteMessage(message.getId());
+
+        call.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.pmsumail.adapters.MessagesListAdapter;
-import com.example.pmsumail.model.Email;
+import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Folder;
 
 import java.io.ByteArrayOutputStream;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class FolderActivity extends AppCompatActivity {
 
     private ArrayList<Folder> folders = new ArrayList<Folder>();
-    private ArrayList<Email> emails = new ArrayList<Email>();
+    private ArrayList<Message> messages = new ArrayList<Message>();
 
 
     private MessagesListAdapter messagesListAdapter;
@@ -48,7 +48,7 @@ public class FolderActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Email messages = UtilsDummyModels.getMockedMessages(FolderActivity.this).get(i);
+                Message messages = UtilsDummyModels.getMockedMessages(FolderActivity.this).get(i);
 
                 Intent intent = new Intent(FolderActivity.this, EmailActivity.class);
                 intent.putExtra("Content", messages.getContent());
