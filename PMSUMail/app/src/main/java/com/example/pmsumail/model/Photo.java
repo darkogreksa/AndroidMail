@@ -2,9 +2,19 @@ package com.example.pmsumail.model;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Photo {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("path")
+    @Expose
     private String path;
+    @SerializedName("bitmap")
+    @Expose
     private Bitmap bitmap;
 
     public Photo() {

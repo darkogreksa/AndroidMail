@@ -1,13 +1,26 @@
 package com.example.pmsumail.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Folder {
 
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("rule")
+    @Expose
     private Rule rule;
+    @SerializedName("subfolder")
+    @Expose
     private Folder subfolder;
+    @SerializedName("emails")
+    @Expose
     private ArrayList<Email> emails;
 
 

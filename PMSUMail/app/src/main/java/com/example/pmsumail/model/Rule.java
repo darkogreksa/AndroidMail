@@ -1,5 +1,8 @@
 package com.example.pmsumail.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Rule {
 
 
@@ -16,8 +19,14 @@ public class Rule {
         PASTE
     }
 
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("condition")
+    @Expose
     private Condition condition;
+    @SerializedName("operation")
+    @Expose
     private Operation operation;
 
     public Rule() {

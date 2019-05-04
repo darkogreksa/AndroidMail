@@ -2,13 +2,27 @@ package com.example.pmsumail.model;
 
 import android.util.Base64;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Attachment {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("data")
+    @Expose
     private Base64 data;
+    @SerializedName("type")
+    @Expose
     private String type;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("emails")
+    @Expose
     private ArrayList<Email> emails;
 
     public Attachment() {

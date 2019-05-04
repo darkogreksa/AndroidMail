@@ -2,19 +2,43 @@ package com.example.pmsumail.model;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Email {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("from")
+    @Expose
     private Contact from;
+    @SerializedName("to")
+    @Expose
     private Contact to;
+    @SerializedName("account")
+    @Expose
     private Account account;
+    @SerializedName("folder")
+    @Expose
     private Folder folder;
+    @SerializedName("dateTime")
+    @Expose
     private Date dateTime;
+    @SerializedName("subject")
+    @Expose
     private String subject;
+    @SerializedName("content")
+    @Expose
     private String content;
+    @SerializedName("attachments")
+    @Expose
     private ArrayList<Attachment> attachments;
+    @SerializedName("tags")
+    @Expose
     private ArrayList<Tag> tags;
 
     public Email() {

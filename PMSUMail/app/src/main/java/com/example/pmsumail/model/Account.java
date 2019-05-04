@@ -1,11 +1,29 @@
 package com.example.pmsumail.model;
 
-public class Account {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Account implements Serializable {
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("smtp")
+    @Expose
     private String smtp;
+    @SerializedName("pop3")
+    @Expose
     private String pop3;
+    @SerializedName("username")
+    @Expose
     private String username;
+    @SerializedName("password")
+    @Expose
     private String password;
+    @SerializedName("email")
+    @Expose
     private String email;
 
     public Account() {

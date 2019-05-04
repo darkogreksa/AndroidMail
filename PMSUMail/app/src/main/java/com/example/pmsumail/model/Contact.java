@@ -1,16 +1,35 @@
 package com.example.pmsumail.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Contact {
+
     public enum Format {
         PLAIN,
         HTML
     }
+
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("firstname")
+    @Expose
     private String firstname;
+    @SerializedName("lastname")
+    @Expose
     private String lastname;
+    @SerializedName("display")
+    @Expose
     private String display;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("photo")
+    @Expose
     private Photo photo;
+    @SerializedName("f")
+    @Expose
     private Format f;
 
     public Contact() {
