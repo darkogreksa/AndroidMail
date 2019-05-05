@@ -10,6 +10,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface MessageService {
@@ -32,5 +33,8 @@ public interface MessageService {
 
     @DELETE(ServiceUtils.MESSAGEDELETE)
     Call<Message> deleteMessage(@Path("id") int id);
+
+    @PUT(ServiceUtils.ADDTAGINMESSAGE)
+    Call<Message> addTagInMessage(@Path("messageId") int messageId, @Path("tagId") int tagId);
 
 }

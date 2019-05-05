@@ -14,15 +14,21 @@ import android.widget.Toast;
 
 import com.example.pmsumail.model.Account;
 import com.example.pmsumail.model.Message;
+import com.example.pmsumail.model.Tag;
 import com.example.pmsumail.service.AccountService;
 import com.example.pmsumail.service.ContactService;
 import com.example.pmsumail.service.MessageService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.pmsumail.service.ServiceUtils.tagService;
 
 public class EmailActivity extends AppCompatActivity {
 
@@ -31,6 +37,7 @@ public class EmailActivity extends AppCompatActivity {
     private MessageService messageService;
     private AccountService accountService;
     private SharedPreferences sharedPreferences;
+    private List<Tag> tags = new ArrayList<>();
     String accountPrefe;
 
     @Override
@@ -66,6 +73,23 @@ public class EmailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Account> call, Throwable t) {
 
+            }
+        });
+
+        Call callTags = tagService.getTags();
+
+        callTags.enqueue(new Callback<List<Tag>>() {
+            @Override
+            public void onResponse(Call<List<Tag>> calltag, Response<List<Tag>> res) {
+
+                if(res.isSuccessful()){
+                    tags = res.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tag>> calltag,Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

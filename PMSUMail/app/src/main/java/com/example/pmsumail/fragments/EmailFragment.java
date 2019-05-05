@@ -10,14 +10,24 @@ import android.widget.TextView;
 
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Message;
+import com.example.pmsumail.model.Tag;
+import com.example.pmsumail.service.ServiceUtils;
+import com.example.pmsumail.service.TagService;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EmailFragment extends Fragment {
     View view;
 
     Message message = new Message();
     ArrayList<Message> messages = new ArrayList<>();
+    private TagService tagService;
+    private List<Tag> tags;
 
     public EmailFragment() {
     }
@@ -54,7 +64,28 @@ public class EmailFragment extends Fragment {
         TextView date_messages = view.findViewById(R.id.date_messages);
 
 
+        final TextView tag = view.findViewById(R.id.tag_Read);
 
+        tagService = ServiceUtils.tagService;
+        Call<List<Tag>> call = tagService.getTagByMessage(message.getId());
+
+        call.enqueue(new Callback<List<Tag>>() {
+            @Override
+            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+
+                tags = response.body();
+
+                for(Tag t : tags){
+                    tag.setText(t.getName());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Tag>> call, Throwable t) {
+
+            }
+        });
 
 
 

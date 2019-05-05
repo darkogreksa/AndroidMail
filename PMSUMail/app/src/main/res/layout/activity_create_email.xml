@@ -38,6 +38,13 @@
             android:maxLines="1" />
 
         <EditText
+            android:id="@+id/tagCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tags"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"

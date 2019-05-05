@@ -2,7 +2,9 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -23,10 +25,19 @@ import com.example.pmsumail.adapters.ContactListAdapter;
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.model.Contact;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.ServiceUtils;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.pmsumail.service.ServiceUtils.contactService;
 
 public class ContactsActivity extends AppCompatActivity {
 
@@ -36,7 +47,10 @@ public class ContactsActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
-    private ArrayList<Contact> contacts = new ArrayList<Contact>();
+    private List<Contact> contacts = new ArrayList<>();
+    private Contact contact = new Contact();
+    private SharedPreferences sharedPreferences;
+    private ListView listView;
 
     private ContactListAdapter contactListAdapter;
 
@@ -141,6 +155,77 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
+        contactService = contactService;
+
+        Call call = contactService.getContacts();
+
+        call.enqueue(new Callback<List<Contact>>() {
+            @Override
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+
+                if(response.isSuccessful()){
+                    contacts = response.body();
+                    listView.setAdapter(new ContactListAdapter(ContactsActivity.this, contacts));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                contact = contacts.get(i);
+
+                contactService = ServiceUtils.contactService;
+                Call<Contact> call = contactService.getContact(contact.getId());
+
+                call.enqueue(new Callback<Contact>() {
+                    @Override
+                    public void onResponse(Call<Contact> call, Response<Contact> response) {
+
+                        if (response.isSuccessful()){
+                            contact = response.body();
+                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
+                            intent.putExtra("Contact", new Gson().toJson(contact));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Contact> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+    }
+
+    //Dodato zbog servisa
+    public void getContact(){
+        Call<List<Contact>> call = contactService.getContacts();
+
+        call.enqueue(new Callback<List<Contact>>() {
+            @Override
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+                contacts = response.body();
+                ContactListAdapter contactListAdapter = new ContactListAdapter(ContactsActivity.this, contacts);
+                listView.setAdapter(contactListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
