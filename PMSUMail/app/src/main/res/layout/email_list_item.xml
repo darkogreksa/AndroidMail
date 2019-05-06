@@ -17,7 +17,6 @@
                 android:id="@+id/email_name_view"
                 android:layout_width="105dp"
                 android:layout_height="90dp"
-                android:layout_toRightOf="@id/image_view"
                 android:background="@color/white"
                 android:gravity="center"
                 android:textColor="@color/black"

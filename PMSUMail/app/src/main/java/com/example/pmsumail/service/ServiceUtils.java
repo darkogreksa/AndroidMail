@@ -34,6 +34,9 @@ public class ServiceUtils {
     public static final String TAGS = "tags/all";
     public static final String GETTAGBYMESSAGE = "tags/message/{id}";
     public static final String ADDTAGINMESSAGE = "messages/addTag/{messageId}/{tagId}";
+    public static final String ATTACHMENTS = "attachments/all";
+    public static final String ATTACHMENTID = "attachments/{id}";
+    public static final String ATTACHMENTADD = "attachments/add";
 
 
     public static OkHttpClient test(){
@@ -64,4 +67,5 @@ public class ServiceUtils {
     public static FolderService folderService = retrofit.create(FolderService.class);
     public static ContactService contactService = retrofit.create(ContactService.class);
     public static TagService tagService = retrofit.create(TagService.class);
+    public static AttachmentService attachmentService = retrofit.create(AttachmentService.class);
 }

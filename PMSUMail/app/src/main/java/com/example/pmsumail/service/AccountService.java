@@ -23,5 +23,5 @@ public interface AccountService {
     Call<Account> getByUsername(@Path("username") String username);
 
     @GET(ServiceUtils.ACCOUNTS)
-    Call<List<Account>> getUsers();
+    Call<List<Account>> getAccounts();
 }

@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmsumail.model.Account;
+import com.example.pmsumail.model.Attachment;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Tag;
 import com.example.pmsumail.service.AccountService;
+import com.example.pmsumail.service.AttachmentService;
 import com.example.pmsumail.service.ContactService;
 import com.example.pmsumail.service.MessageService;
 import com.example.pmsumail.service.ServiceUtils;
@@ -36,8 +38,10 @@ public class EmailActivity extends AppCompatActivity {
     private Account account = new Account();
     private MessageService messageService;
     private AccountService accountService;
+    private AttachmentService attachmentService;
     private SharedPreferences sharedPreferences;
     private List<Tag> tags = new ArrayList<>();
+    private List<Attachment> attachments = new ArrayList<>();
     String accountPrefe;
 
     @Override
@@ -89,6 +93,22 @@ public class EmailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Tag>> calltag,Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Call callAttachments = attachmentService.getAttachments();
+
+        callAttachments.enqueue(new Callback<List<Attachment>>() {
+            @Override
+            public void onResponse(Call<List<Attachment>> callAtt, Response<List<Attachment>> responseAtt) {
+                if(responseAtt.isSuccessful()) {
+                    attachments = responseAtt.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -25,6 +25,7 @@ import com.example.pmsumail.adapters.ContactListAdapter;
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.model.Contact;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.ContactService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
 
@@ -50,6 +51,7 @@ public class ContactsActivity extends AppCompatActivity {
     private List<Contact> contacts = new ArrayList<>();
     private Contact contact = new Contact();
     private SharedPreferences sharedPreferences;
+    private ContactService contactService;
     private ListView listView;
 
     private ContactListAdapter contactListAdapter;
@@ -123,37 +125,37 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-        contactListAdapter = new ContactListAdapter(this, UtilsDummyModels.getMockedContacts(ContactsActivity.this));
-        final ListView listView = findViewById(R.id.contacts_list);
-        listView.setAdapter(contactListAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Contact contact = UtilsDummyModels.getMockedContacts(ContactsActivity.this) .get(i);
-
-                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
-                intent.putExtra("First name", contact.getFirstname());
-                intent.putExtra("Last name", contact.getLastname());
-                intent.putExtra("Message", contact.getEmail());
-
-                try {
-                    String fileName = "drawable";
-
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-
-                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-
-                    fileOutputStream.write(bytes.toByteArray());
-                    fileOutputStream.close();
-
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                startActivity(intent);
-            }
-        });
+//        contactListAdapter = new ContactListAdapter(this, UtilsDummyModels.getMockedContacts(ContactsActivity.this));
+//        final ListView listView = findViewById(R.id.contacts_list);
+//        listView.setAdapter(contactListAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+//                Contact contact = UtilsDummyModels.getMockedContacts(ContactsActivity.this) .get(i);
+//
+//                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
+//                intent.putExtra("First name", contact.getFirstname());
+//                intent.putExtra("Last name", contact.getLastname());
+//                intent.putExtra("Message", contact.getEmail());
+//
+//                try {
+//                    String fileName = "drawable";
+//
+//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//
+//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+//
+//                    fileOutputStream.write(bytes.toByteArray());
+//                    fileOutputStream.close();
+//
+//
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//                startActivity(intent);
+//            }
+//        });
 
         contactService = contactService;
 

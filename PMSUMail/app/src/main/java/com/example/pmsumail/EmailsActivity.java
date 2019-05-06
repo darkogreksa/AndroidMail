@@ -23,8 +23,13 @@ import android.widget.Toast;
 
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.EmailListAdapter;
+import com.example.pmsumail.model.Account;
+import com.example.pmsumail.model.Contact;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.AccountService;
+import com.example.pmsumail.service.ContactService;
+import com.example.pmsumail.service.MessageService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
 
@@ -47,11 +52,16 @@ public class EmailsActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
     private List<Message> messages = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
+    private List<Contact> contacts = new ArrayList<>();
     private ListView listView;
     private SharedPreferences sharedPreferences;
     private String userPref;
     private Message message = new Message();
     private boolean sortMessages;
+    private MessageService messageService;
+    private AccountService accountService;
+    private ContactService contactService;
 
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
@@ -132,7 +142,7 @@ public class EmailsActivity extends AppCompatActivity {
 
 
 
-        emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
+        /*emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
         final ListView listView = findViewById(R.id.emails_list);
         listView.setAdapter(emailListAdapter);
 
@@ -162,7 +172,7 @@ public class EmailsActivity extends AppCompatActivity {
                 }
                 startActivity(intent);
             }
-        });
+        });*/
 
         //Dodato zbog servisa
         TextView userText = findViewById(R.id.userName);
@@ -173,7 +183,8 @@ public class EmailsActivity extends AppCompatActivity {
         userPref = sharedPreferences.getString(LoginActivity.Username, "");
 
         messageService = ServiceUtils.messageService;
-//        userService = ServiceUtils.userService;
+        accountService = ServiceUtils.accountService;
+        contactService = ServiceUtils.contactService;
 
         Call call = messageService.getMessages();
 
@@ -189,6 +200,38 @@ public class EmailsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Call callAccounts = accountService.getAccounts();
+
+        callAccounts.enqueue(new Callback<List<Account>>() {
+            @Override
+            public void onResponse(Call<List<Account>> callAcc, Response<List<Account>> responseAcc) {
+                if(responseAcc.isSuccessful()){
+                    accounts = responseAcc.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call callAcc, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Call callContacts = contactService.getContacts();
+
+        callContacts.enqueue(new Callback<List<Contact>>() {
+            @Override
+            public void onResponse(Call<List<Contact>> callCon, Response<List<Contact>> responseCon) {
+                if(responseCon.isSuccessful()) {
+                    contacts = responseCon.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -209,7 +252,7 @@ public class EmailsActivity extends AppCompatActivity {
                         if (response.isSuccessful()){
                             message = response.body();
                             Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
-                            intent.putExtra("Post", new Gson().toJson(message));
+                            intent.putExtra("Message", new Gson().toJson(message));
 
                             startActivity(intent);
                         }

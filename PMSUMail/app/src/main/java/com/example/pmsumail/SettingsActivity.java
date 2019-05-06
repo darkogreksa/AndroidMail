@@ -1,6 +1,7 @@
 package com.example.pmsumail;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 
 public class SettingsActivity extends PreferenceActivity {
@@ -9,8 +10,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference);
-
-
+        ListPreference lpDate = (ListPreference) findPreference(getString(R.string.pref_sort_messages_by_date_key_list));
     }
 
     @Override
