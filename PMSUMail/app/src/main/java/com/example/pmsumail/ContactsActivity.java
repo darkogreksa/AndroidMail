@@ -125,39 +125,39 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-//        contactListAdapter = new ContactListAdapter(this, UtilsDummyModels.getMockedContacts(ContactsActivity.this));
-//        final ListView listView = findViewById(R.id.contacts_list);
-//        listView.setAdapter(contactListAdapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-//                Contact contact = UtilsDummyModels.getMockedContacts(ContactsActivity.this) .get(i);
-//
-//                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
-//                intent.putExtra("First name", contact.getFirstname());
-//                intent.putExtra("Last name", contact.getLastname());
-//                intent.putExtra("Message", contact.getEmail());
-//
-//                try {
-//                    String fileName = "drawable";
-//
-//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//
-//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//
-//                    fileOutputStream.write(bytes.toByteArray());
-//                    fileOutputStream.close();
-//
-//
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                startActivity(intent);
-//            }
-//        });
+        contactListAdapter = new ContactListAdapter(this, UtilsDummyModels.getMockedContacts(ContactsActivity.this));
+        final ListView listView = findViewById(R.id.contacts_list);
+        listView.setAdapter(contactListAdapter);
 
-        contactService = contactService;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Contact contact = UtilsDummyModels.getMockedContacts(ContactsActivity.this) .get(i);
+
+                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
+                intent.putExtra("First name", contact.getFirstname());
+                intent.putExtra("Last name", contact.getLastname());
+                intent.putExtra("Message", contact.getEmail());
+
+                try {
+                    String fileName = "drawable";
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+
+                    fileOutputStream.write(bytes.toByteArray());
+                    fileOutputStream.close();
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            }
+        });
+
+        contactService = ServiceUtils.contactService;
 
         Call call = contactService.getContacts();
 
@@ -234,6 +234,7 @@ public class ContactsActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
         mNavItems.add(new NavItem(getString(R.string.folders), null, R.drawable.ic_folders));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
+        mNavItems.add(new NavItem("Logout", null, R.drawable.ic_icon));
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
@@ -253,6 +254,11 @@ public class ContactsActivity extends AppCompatActivity {
         }else if(position == 2){
             Intent settingsIntent = new Intent(this,SettingsActivity.class);
             startActivity(settingsIntent);
+        }else if(position == 3) {
+            Intent ite = new Intent(this, LoginActivity.class);
+            sharedPreferences.edit().clear().commit();
+            startActivity(ite);
+            finish();
         }
         mDrawerList.setItemChecked(position, true);
         setTitle(mNavItems.get(position).getmTitle());

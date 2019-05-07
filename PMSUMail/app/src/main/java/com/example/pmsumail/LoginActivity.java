@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        finish();
     }
 
     @Override

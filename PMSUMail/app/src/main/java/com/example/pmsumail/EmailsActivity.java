@@ -142,7 +142,7 @@ public class EmailsActivity extends AppCompatActivity {
 
 
 
-        /*emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
+        emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
         final ListView listView = findViewById(R.id.emails_list);
         listView.setAdapter(emailListAdapter);
 
@@ -172,7 +172,7 @@ public class EmailsActivity extends AppCompatActivity {
                 }
                 startActivity(intent);
             }
-        });*/
+        });
 
         //Dodato zbog servisa
         TextView userText = findViewById(R.id.userName);
@@ -337,6 +337,7 @@ public class EmailsActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));
         mNavItems.add(new NavItem(getString(R.string.folders), null, R.drawable.ic_folders));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
+        mNavItems.add(new NavItem("Logout", null, R.drawable.ic_icon));
     }
 
     //prelazak na aktivnosti iz navigation drawera
@@ -350,6 +351,11 @@ public class EmailsActivity extends AppCompatActivity {
         }else if(position == 2){
             Intent settingsIntent = new Intent(this,SettingsActivity.class);
             startActivity(settingsIntent);
+        }else if(position == 3) {
+            Intent ite = new Intent(this, LoginActivity.class);
+            sharedPreferences.edit().clear().commit();
+            startActivity(ite);
+            finish();
         }
         mDrawerList.setItemChecked(position, true);
         setTitle(mNavItems.get(position).getmTitle());

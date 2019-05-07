@@ -127,40 +127,40 @@ public class FoldersActivity extends AppCompatActivity {
             }
         });
 
-//        //dodajes listu itema u adapter
-//        folderListAdapter = new FolderListAdapter(this, UtilsDummyModels.getMockedFolders(FoldersActivity.this));
-//        final ListView listView = findViewById(R.id.folders_list);
-//        listView.setAdapter(folderListAdapter);
-////        setujes na klik listenre
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-////                int i ti je index kliknut u nizu
-//                Folder folder = UtilsDummyModels.getMockedFolders(FoldersActivity.this).get(i);
-//
-//                Intent intent = new Intent(FoldersActivity.this, FolderActivity.class);
-//                intent.putExtra("Folder_name", folder.getName());
-//
-//                try {
-//                    String fileName = "drawable";
-//
-//
-//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//
-//
-//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//
-//
-//                    fileOutputStream.write(bytes.toByteArray());
-//                    fileOutputStream.close();
-//
-//
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                startActivity(intent);
-//            }
-//        });
+        //dodajes listu itema u adapter
+        folderListAdapter = new FolderListAdapter(this, UtilsDummyModels.getMockedFolders(FoldersActivity.this));
+        final ListView listView = findViewById(R.id.folders_list);
+        listView.setAdapter(folderListAdapter);
+//        setujes na klik listenre
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+//                int i ti je index kliknut u nizu
+                Folder folder = UtilsDummyModels.getMockedFolders(FoldersActivity.this).get(i);
+
+                Intent intent = new Intent(FoldersActivity.this, FolderActivity.class);
+                intent.putExtra("Folder_name", folder.getName());
+
+                try {
+                    String fileName = "drawable";
+
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+
+                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+
+
+                    fileOutputStream.write(bytes.toByteArray());
+                    fileOutputStream.close();
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            }
+        });
 
         folderService = ServiceUtils.folderService;
 
@@ -240,6 +240,7 @@ public class FoldersActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
+        mNavItems.add(new NavItem("Logout", null, R.drawable.ic_icon));
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -259,6 +260,11 @@ public class FoldersActivity extends AppCompatActivity {
         else if(position == 2){
             Intent settingsIntent = new Intent(this,SettingsActivity.class);
             startActivity(settingsIntent);
+        }else if(position == 3) {
+            Intent ite = new Intent(this, LoginActivity.class);
+            sharedPreferences.edit().clear().commit();
+            startActivity(ite);
+            finish();
         }
         mDrawerList.setItemChecked(position, true);
         setTitle(mNavItems.get(position).getmTitle());
