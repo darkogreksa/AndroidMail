@@ -24,11 +24,11 @@ import android.widget.Toast;
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.EmailListAdapter;
 import com.example.pmsumail.model.Account;
-import com.example.pmsumail.model.Contact;
+import com.example.pmsumail.model.Folder;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.NavItem;
 import com.example.pmsumail.service.AccountService;
-import com.example.pmsumail.service.ContactService;
+import com.example.pmsumail.service.FolderService;
 import com.example.pmsumail.service.MessageService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
@@ -53,7 +53,7 @@ public class EmailsActivity extends AppCompatActivity {
     private CharSequence mTitle;
     private List<Message> messages = new ArrayList<>();
     private List<Account> accounts = new ArrayList<>();
-    private List<Contact> contacts = new ArrayList<>();
+    private List<Folder> folders = new ArrayList<>();
     private ListView listView;
     private SharedPreferences sharedPreferences;
     private String userPref;
@@ -61,7 +61,7 @@ public class EmailsActivity extends AppCompatActivity {
     private boolean sortMessages;
     private MessageService messageService;
     private AccountService accountService;
-    private ContactService contactService;
+    private FolderService folderService;
 
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
 
@@ -142,37 +142,37 @@ public class EmailsActivity extends AppCompatActivity {
 
 
 
-        emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
-        final ListView listView = findViewById(R.id.emails_list);
-        listView.setAdapter(emailListAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Message message = UtilsDummyModels.getMockEmails(EmailsActivity.this).get(i);
-
-                Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
-                intent.putExtra("Content", message.getContent());
-                intent.putExtra("From", message.getFrom().getFirstname() + " " + message.getFrom().getLastname());
-
-                try {
-                    String fileName = "drawable";
-
-
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-
-                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-
-                    fileOutputStream.write(bytes.toByteArray());
-                    fileOutputStream.close();
-
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                startActivity(intent);
-            }
-        });
+//        emailListAdapter = new EmailListAdapter(this, UtilsDummyModels.getMockEmails(EmailsActivity.this));
+//        final ListView listView = findViewById(R.id.emails_list);
+//        listView.setAdapter(emailListAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+//                Message message = UtilsDummyModels.getMockEmails(EmailsActivity.this).get(i);
+//
+//                Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
+//                intent.putExtra("Content", message.getContent());
+//                intent.putExtra("From", message.getFrom().getFirstname() + " " + message.getFrom().getLastname());
+//
+//                try {
+//                    String fileName = "drawable";
+//
+//
+//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//
+//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+//
+//                    fileOutputStream.write(bytes.toByteArray());
+//                    fileOutputStream.close();
+//
+//
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//                startActivity(intent);
+//            }
+//        });
 
         //Dodato zbog servisa
         TextView userText = findViewById(R.id.userName);
@@ -184,7 +184,7 @@ public class EmailsActivity extends AppCompatActivity {
 
         messageService = ServiceUtils.messageService;
         accountService = ServiceUtils.accountService;
-        contactService = ServiceUtils.contactService;
+//        folderService = ServiceUtils.folderService;
 
         Call call = messageService.getMessages();
 
@@ -220,54 +220,6 @@ public class EmailsActivity extends AppCompatActivity {
             }
         });
 
-        Call callContacts = contactService.getContacts();
-
-        callContacts.enqueue(new Callback<List<Contact>>() {
-            @Override
-            public void onResponse(Call<List<Contact>> callCon, Response<List<Contact>> responseCon) {
-                if(responseCon.isSuccessful()) {
-                    contacts = responseCon.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                message = messages.get(i);
-
-                messageService = ServiceUtils.messageService;
-                Call<Message> call = messageService.getMessage(message.getId());
-
-                call.enqueue(new Callback<Message>() {
-                    @Override
-                    public void onResponse(Call<Message> call, Response<Message> response) {
-
-                        if (response.isSuccessful()){
-                            message = response.body();
-                            Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
-                            intent.putExtra("Message", new Gson().toJson(message));
-
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Message> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        consultPreferences();
     }
     ///////////////////////////////////////
     ///////////////////////////////////////
@@ -361,13 +313,6 @@ public class EmailsActivity extends AppCompatActivity {
         setTitle(mNavItems.get(position).getmTitle());
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
-
-//    //tekst koji se ispisuje na toolbar-u
-//    @Override
-//    public void setTitle(CharSequence title) {
-//        mTitle = title;
-//        getSupportActionBar().setTitle(mTitle);
-//    }
 
     //meni na toolbaru, odnosno ikonice za prelazak na ostale aktivnosti
     @Override

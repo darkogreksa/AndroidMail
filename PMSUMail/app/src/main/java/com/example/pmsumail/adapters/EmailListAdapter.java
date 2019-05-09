@@ -36,7 +36,7 @@ public class EmailListAdapter extends ArrayAdapter<Message> {
 
         email_context_view.setText(message.getContent());
 
-        email_from_view.setText(message.getFrom().getFirstname() + " " + message.getFrom().getLastname());
+        email_from_view.setText(message.getFrom().getUsername());
 
 
         SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");

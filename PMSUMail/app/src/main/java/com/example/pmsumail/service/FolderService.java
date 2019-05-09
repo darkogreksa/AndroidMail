@@ -22,7 +22,4 @@ public interface FolderService {
 
     @GET(ServiceUtils.FOLDERID)
     Call<Folder> getFolder(@Path("id") int id);
-
-    @POST(ServiceUtils.FOLDERADD)
-    Call<Folder> addFolder(@Body Folder folder);
 }

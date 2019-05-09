@@ -11,22 +11,20 @@ import android.widget.TextView;
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Tag;
-import com.example.pmsumail.service.ServiceUtils;
-import com.example.pmsumail.service.TagService;
+import com.example.pmsumail.service.MessageService;
+import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EmailFragment extends Fragment {
     View view;
 
-    Message message = new Message();
+    private Message message;
     ArrayList<Message> messages = new ArrayList<>();
     private TagService tagService;
+    private MessageService messageService;
     private List<Tag> tags;
 
     public EmailFragment() {
@@ -43,51 +41,36 @@ public class EmailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String json = null;
+        Bundle extras = getActivity().getIntent().getExtras();
+        if (extras != null){
+            json = extras.getString("Message");
+        }
+        message = new Gson().fromJson(json, Message.class);
+
+        message.getId();
+
         TextView from_view = view.findViewById(R.id.from_view);
-        from_view.setText(getActivity().getIntent().getStringExtra("From"));
+        from_view.setText(message.getFrom().getUsername());
 
         TextView to_view = view.findViewById(R.id.to_view);
-        to_view.setText(getActivity().getIntent().getStringExtra("To"));
+        to_view.setText(message.getTo().getFirstname());
 
         TextView subject_view = view.findViewById(R.id.subject_view);
-        subject_view.setText(getActivity().getIntent().getStringExtra("Subject"));
+        subject_view.setText(message.getSubject());
 
         TextView cc_view = view.findViewById(R.id.cc_view);
-        cc_view.setText(getActivity().getIntent().getStringExtra("CC"));
+        cc_view.setText(message.getCc());
 
         TextView bc_view = view.findViewById(R.id.bc_view);
-        bc_view.setText(getActivity().getIntent().getStringExtra("BC"));
+        bc_view.setText(message.getBcc());
 
         TextView content_view = view.findViewById(R.id.content_view);
-        content_view.setText(getActivity().getIntent().getStringExtra("Content"));
+        content_view.setText(message.getContent());
 
         TextView date_messages = view.findViewById(R.id.date_messages);
-
-
-        final TextView tag = view.findViewById(R.id.tag_Read);
-
-        tagService = ServiceUtils.tagService;
-        Call<List<Tag>> call = tagService.getTagByMessage(message.getId());
-
-        call.enqueue(new Callback<List<Tag>>() {
-            @Override
-            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
-
-                tags = response.body();
-
-                for(Tag t : tags){
-                    tag.setText(t.getName());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Tag>> call, Throwable t) {
-
-            }
-        });
-
-
+        String dateMessage = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(message.getDateTime());
+        date_messages.setText(dateMessage);
 
     }
 }

@@ -41,37 +41,37 @@ public class FolderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        messagesListAdapter = new MessagesListAdapter(this, UtilsDummyModels.getMockedMessages(FolderActivity.this));
-        final ListView listView = findViewById(R.id.folder_list);
-        listView.setAdapter(messagesListAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Message messages = UtilsDummyModels.getMockedMessages(FolderActivity.this).get(i);
-
-                Intent intent = new Intent(FolderActivity.this, EmailActivity.class);
-                intent.putExtra("Content", messages.getContent());
-                intent.putExtra("From", messages.getFrom().getFirstname() + " " + messages.getFrom().getLastname());
-
-                try {
-                    String fileName = "drawable";
-
-
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-
-                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-
-                    fileOutputStream.write(bytes.toByteArray());
-                    fileOutputStream.close();
-
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                startActivity(intent);
-            }
-        });
+//        messagesListAdapter = new MessagesListAdapter(this, UtilsDummyModels.getMockedMessages(FolderActivity.this));
+//        final ListView listView = findViewById(R.id.folder_list);
+//        listView.setAdapter(messagesListAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+//                Message messages = UtilsDummyModels.getMockedMessages(FolderActivity.this).get(i);
+//
+//                Intent intent = new Intent(FolderActivity.this, EmailActivity.class);
+//                intent.putExtra("Content", messages.getContent());
+//                intent.putExtra("From", messages.getFrom().getFirstname() + " " + messages.getFrom().getLastname());
+//
+//                try {
+//                    String fileName = "drawable";
+//
+//
+//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//
+//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+//
+//                    fileOutputStream.write(bytes.toByteArray());
+//                    fileOutputStream.close();
+//
+//
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//                startActivity(intent);
+//            }
+//        });
 
 
     }

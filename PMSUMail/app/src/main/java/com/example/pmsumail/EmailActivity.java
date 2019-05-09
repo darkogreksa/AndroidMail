@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmsumail.model.Account;
@@ -17,8 +16,6 @@ import com.example.pmsumail.model.Attachment;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Tag;
 import com.example.pmsumail.service.AccountService;
-import com.example.pmsumail.service.AttachmentService;
-import com.example.pmsumail.service.ContactService;
 import com.example.pmsumail.service.MessageService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
@@ -29,8 +26,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.example.pmsumail.service.ServiceUtils.tagService;
 
 public class EmailActivity extends AppCompatActivity {
 
@@ -66,52 +61,52 @@ public class EmailActivity extends AppCompatActivity {
 
         accountPrefe = sharedPreferences.getString(LoginActivity.Username, "");
 
-        Call<Account> call = accountService.getByUsername(accountPrefe);
+//        Call<Account> call = accountService.getByUsername(accountPrefe);
+//
+//        call.enqueue(new Callback<Account>() {
+//            @Override
+//            public void onResponse(Call<Account> call, Response<Account> response) {
+//                account = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Account> call, Throwable t) {
+//
+//            }
+//        });
 
-        call.enqueue(new Callback<Account>() {
-            @Override
-            public void onResponse(Call<Account> call, Response<Account> response) {
-                account = response.body();
-            }
+//        Call callTags = tagService.getTags();
+//
+//        callTags.enqueue(new Callback<List<Tag>>() {
+//            @Override
+//            public void onResponse(Call<List<Tag>> calltag, Response<List<Tag>> res) {
+//
+//                if(res.isSuccessful()){
+//                    tags = res.body();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Tag>> calltag,Throwable t) {
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<Account> call, Throwable t) {
-
-            }
-        });
-
-        Call callTags = tagService.getTags();
-
-        callTags.enqueue(new Callback<List<Tag>>() {
-            @Override
-            public void onResponse(Call<List<Tag>> calltag, Response<List<Tag>> res) {
-
-                if(res.isSuccessful()){
-                    tags = res.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Tag>> calltag,Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Call callAttachments = attachmentService.getAttachments();
-
-        callAttachments.enqueue(new Callback<List<Attachment>>() {
-            @Override
-            public void onResponse(Call<List<Attachment>> callAtt, Response<List<Attachment>> responseAtt) {
-                if(responseAtt.isSuccessful()) {
-                    attachments = responseAtt.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call callAttachments = attachmentService.getAttachments();
+//
+//        callAttachments.enqueue(new Callback<List<Attachment>>() {
+//            @Override
+//            public void onResponse(Call<List<Attachment>> callAtt, Response<List<Attachment>> responseAtt) {
+//                if(responseAtt.isSuccessful()) {
+//                    attachments = responseAtt.body();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 //        TextView from_view = findViewById(R.id.from_view);

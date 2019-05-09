@@ -17,7 +17,7 @@ public class MessagesListAdapter extends ArrayAdapter<Message> {
 
 
 
-    private Message messages;
+    private Message message;
 
 
     public MessagesListAdapter(Context context, List<Message> messages) {
@@ -26,7 +26,7 @@ public class MessagesListAdapter extends ArrayAdapter<Message> {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        messages = getItem(position);
+        message = getItem(position);
 
         if(view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.messages_list_item, viewGroup, false);
@@ -36,13 +36,13 @@ public class MessagesListAdapter extends ArrayAdapter<Message> {
         TextView email_from_view = view.findViewById(R.id.messages_name_view);
         TextView date_messages = view.findViewById(R.id.date_messages);
 
-        email_context_view.setText(messages.getContent());
+        email_context_view.setText(message.getContent());
 
-        email_from_view.setText(messages.getFrom().getFirstname() + " " + messages.getFrom().getLastname());
+        email_from_view.setText(message.getFrom().getUsername());
 
 
         SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
-        String date = simpleDate.format(messages.getDateTime());
+        String date = simpleDate.format(message.getDateTime());
         date_messages.setText(date);
 
 

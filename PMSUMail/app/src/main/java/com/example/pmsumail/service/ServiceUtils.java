@@ -21,22 +21,10 @@ public class ServiceUtils {
     public static final String USERNAME = "accounts/{username}";
     public static final String ACCOUNTS = "accounts/all";
     public static final String MESSAGES = "messages/all";
-    public static final String MESSAGEID ="messages/{id}";
-    public static final String MESSAGEADD = "messages/add";
-    public static final String MESSAGEDELETE = "messages/delete/{id}";
-    public static final String SORTMESSAGES = "messages/date";
+    public static final String SORTMESSAGES = "messages/order";
     public static final String FOLDERS = "folders/all";
-    public static final String FOLDERID = "folders/{id}";
-    public static final String FOLDERADD = "folders/add";
+    public static final String FOLDERID = "folders/folder/{id}";
     public static final String CONTACTS = "contacts/all";
-    public static final String CONTACTID = "contacts/{id}";
-    public static final String CONTACTADD = "contacts/add";
-    public static final String TAGS = "tags/all";
-    public static final String GETTAGBYMESSAGE = "tags/message/{id}";
-    public static final String ADDTAGINMESSAGE = "messages/addTag/{messageId}/{tagId}";
-    public static final String ATTACHMENTS = "attachments/all";
-    public static final String ATTACHMENTID = "attachments/{id}";
-    public static final String ATTACHMENTADD = "attachments/add";
 
 
     public static OkHttpClient test(){
@@ -66,6 +54,4 @@ public class ServiceUtils {
     public static MessageService messageService = retrofit.create(MessageService.class);
     public static FolderService folderService = retrofit.create(FolderService.class);
     public static ContactService contactService = retrofit.create(ContactService.class);
-    public static TagService tagService = retrofit.create(TagService.class);
-    public static AttachmentService attachmentService = retrofit.create(AttachmentService.class);
 }

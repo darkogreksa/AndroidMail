@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Folder;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class FolderFragment extends Fragment {
     View view;
 
-    Folder folder = new Folder();
+    private Folder folder;
     ArrayList<Folder> folders = new ArrayList<>();
 
 
@@ -34,8 +35,17 @@ public class FolderFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String json = null;
+        Bundle extras = getActivity().getIntent().getExtras();
+        if (extras != null){
+            json = extras.getString("Folder");
+        }
+        folder = new Gson().fromJson(json, Folder.class);
+
+        folder.getId();
+
         TextView FolderName_view = view.findViewById(R.id.folder_title_view);
-        FolderName_view .setText(getActivity().getIntent().getStringExtra("Folder name"));
+        FolderName_view .setText(folder.getName());
 
 
     }

@@ -22,19 +22,7 @@ public interface MessageService {
     @GET(ServiceUtils.MESSAGES)
     Call<List<Message>> getMessages();
 
-    @GET(ServiceUtils.MESSAGEID)
-    Call<Message> getMessage(@Path("id") int id);
-
-    @POST(ServiceUtils.MESSAGEADD)
-    Call<Message> addMessage(@Body Message message);
-
     @GET(ServiceUtils.SORTMESSAGES)
     Call<List<Message>> sortMessages();
-
-    @DELETE(ServiceUtils.MESSAGEDELETE)
-    Call<Message> deleteMessage(@Path("id") int id);
-
-    @PUT(ServiceUtils.ADDTAGINMESSAGE)
-    Call<Message> addTagInMessage(@Path("messageId") int messageId, @Path("tagId") int tagId);
 
 }

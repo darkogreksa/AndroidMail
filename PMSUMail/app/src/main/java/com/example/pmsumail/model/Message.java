@@ -15,10 +15,16 @@ public class Message {
     private int id;
     @SerializedName("from")
     @Expose
-    private Contact from;
+    private Account from;
     @SerializedName("to")
     @Expose
     private Contact to;
+    @SerializedName("cc")
+    @Expose
+    private String cc;
+    @SerializedName("bcc")
+    @Expose
+    private String bcc;
     @SerializedName("account")
     @Expose
     private Account account;
@@ -44,25 +50,34 @@ public class Message {
     public Message() {
     }
 
-    public Message(int id, Contact from, Contact to, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
+    public Message(int id, Account from, Contact to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.id = id;
         this.from = from;
         this.to = to;
+        this.cc = cc;
+        this.bcc = bcc;
+        this.account = account;
+        this.folder = folder;
         this.dateTime = dateTime;
         this.subject = subject;
         this.content = content;
         this.attachments = attachments;
         this.tags = tags;
     }
-    public Message(Contact from, Contact to, String cc, String bcc, String subject, String content, Date dateTime, Bitmap photo) {
+
+    public Message(Account from, Contact to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.from = from;
         this.to = to;
+        this.cc = cc;
+        this.bcc = bcc;
+        this.account = account;
+        this.folder = folder;
+        this.dateTime = dateTime;
         this.subject = subject;
         this.content = content;
-        this.dateTime = dateTime;
+        this.attachments = attachments;
+        this.tags = tags;
     }
-
-
 
     public int getId() {
         return id;
@@ -72,11 +87,11 @@ public class Message {
         this.id = id;
     }
 
-    public Contact getFrom() {
+    public Account getFrom() {
         return from;
     }
 
-    public void setFrom(Contact from) {
+    public void setFrom(Account from) {
         this.from = from;
     }
 
@@ -142,5 +157,21 @@ public class Message {
 
     public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getBcc() {
+        return bcc;
+    }
+
+    public void setBcc(String bcc) {
+        this.bcc = bcc;
     }
 }
