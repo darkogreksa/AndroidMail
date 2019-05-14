@@ -70,6 +70,7 @@ public class FoldersActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
+        listView = findViewById(R.id.folders_list);
 
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {

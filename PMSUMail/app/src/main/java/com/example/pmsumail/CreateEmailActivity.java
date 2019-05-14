@@ -19,7 +19,6 @@ public class CreateEmailActivity extends AppCompatActivity {
     private ImageView btnCancel;
     private EditText tagText;
     private static Tag tag = new Tag();
-    private TagService tagService;
     private MessageService messageService;
     private static Tag tagBody = new Tag();
     private static Message messageBody;

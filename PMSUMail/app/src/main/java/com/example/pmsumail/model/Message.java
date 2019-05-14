@@ -15,10 +15,10 @@ public class Message {
     private int id;
     @SerializedName("from")
     @Expose
-    private Account from;
+    private String from;
     @SerializedName("to")
     @Expose
-    private Contact to;
+    private String to;
     @SerializedName("cc")
     @Expose
     private String cc;
@@ -50,7 +50,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(int id, Account from, Contact to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
+    public Message(int id, String from, String to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -65,7 +65,7 @@ public class Message {
         this.tags = tags;
     }
 
-    public Message(Account from, Contact to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
+    public Message(String from, String to, String cc, String bcc, Account account, Folder folder, Date dateTime, String subject, String content, ArrayList<Attachment> attachments, ArrayList<Tag> tags) {
         this.from = from;
         this.to = to;
         this.cc = cc;
@@ -87,19 +87,19 @@ public class Message {
         this.id = id;
     }
 
-    public Account getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Account from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Contact getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Contact to) {
+    public void setTo(String to) {
         this.to = to;
     }
 

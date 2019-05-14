@@ -23,7 +23,6 @@ public class EmailFragment extends Fragment {
 
     private Message message;
     ArrayList<Message> messages = new ArrayList<>();
-    private TagService tagService;
     private MessageService messageService;
     private List<Tag> tags;
 
@@ -51,10 +50,10 @@ public class EmailFragment extends Fragment {
         message.getId();
 
         TextView from_view = view.findViewById(R.id.from_view);
-        from_view.setText(message.getFrom().getUsername());
+        from_view.setText(message.getFrom());
 
         TextView to_view = view.findViewById(R.id.to_view);
-        to_view.setText(message.getTo().getFirstname());
+        to_view.setText(message.getTo());
 
         TextView subject_view = view.findViewById(R.id.subject_view);
         subject_view.setText(message.getSubject());

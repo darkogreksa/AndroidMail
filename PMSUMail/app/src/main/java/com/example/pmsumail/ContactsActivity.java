@@ -72,6 +72,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
+        listView = (ListView) findViewById(R.id.contacts_list);
 
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {

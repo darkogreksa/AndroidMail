@@ -33,7 +33,6 @@ public class EmailActivity extends AppCompatActivity {
     private Account account = new Account();
     private MessageService messageService;
     private AccountService accountService;
-    private AttachmentService attachmentService;
     private SharedPreferences sharedPreferences;
     private List<Tag> tags = new ArrayList<>();
     private List<Attachment> attachments = new ArrayList<>();
@@ -149,7 +148,7 @@ public class EmailActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Forward" , Toast.LENGTH_SHORT ).show();
                 return true;
             case R.id.action_delete:
-                deleteMessage();
+//                deleteMessage();
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, EmailsActivity.class);
                 startActivity(intent);
@@ -158,21 +157,21 @@ public class EmailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void deleteMessage() {
-        Call<Message> call = messageService.deleteMessage(message.getId());
-
-        call.enqueue(new Callback<Message>() {
-            @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<Message> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void deleteMessage() {
+//        Call<Message> call = messageService.deleteMessage(message.getId());
+//
+//        call.enqueue(new Callback<Message>() {
+//            @Override
+//            public void onResponse(Call<Message> call, Response<Message> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Message> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     protected void onStart() {

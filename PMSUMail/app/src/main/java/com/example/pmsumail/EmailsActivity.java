@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -80,6 +81,7 @@ public class EmailsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
+        listView = findViewById(R.id.emails_list);
 
         //Prelazak na ProfileActivity na klik na "view profile"
         TextView textView = findViewById(R.id.textView);
@@ -201,6 +203,7 @@ public class EmailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("darko", "onFailure: " + t.getMessage());
             }
         });
 

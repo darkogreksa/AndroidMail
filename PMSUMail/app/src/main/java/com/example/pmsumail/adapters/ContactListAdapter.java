@@ -28,10 +28,10 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         }
 
         TextView contact_name_view = view.findViewById(R.id.contact_name_view);
-        ImageView image_view = view.findViewById(R.id.image_view);
+//        ImageView image_view = view.findViewById(R.id.image_view);
 
         contact_name_view.setText(contact.getFirstname());
-        image_view.setImageBitmap(contact.getPhoto().getBitmap());
+//        image_view.setImageBitmap(contact.getPhoto().getBitmap());
 
         return view;
     }
