@@ -9,8 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface MessageService {
@@ -24,5 +22,11 @@ public interface MessageService {
 
     @GET(ServiceUtils.SORTMESSAGES)
     Call<List<Message>> sortMessages();
+
+//    @GET(ServiceUtils.MESSAGEID)
+//    Call<Message> getMessage(@Path("id") int id);
+
+//    @DELETE(ServiceUtils.MESSAGEDELETE)
+//    Call<Message> deleteMessage(@Path("id") int id);
 
 }

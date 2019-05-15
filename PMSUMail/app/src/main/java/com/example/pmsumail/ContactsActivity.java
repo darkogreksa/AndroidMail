@@ -56,10 +56,6 @@ public class ContactsActivity extends AppCompatActivity {
 
     private ContactListAdapter contactListAdapter;
 
-    private Contact contact1 = new Contact();
-    private Contact contact2 = new Contact();
-    private Contact contact3 = new Contact();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +68,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
-        listView = (ListView) findViewById(R.id.contacts_list);
+        listView = findViewById(R.id.contacts_list);
 
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -126,37 +122,6 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-//        contactListAdapter = new ContactListAdapter(this, UtilsDummyModels.getMockedContacts(ContactsActivity.this));
-//        final ListView listView = findViewById(R.id.contacts_list);
-//        listView.setAdapter(contactListAdapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-//                Contact contact = UtilsDummyModels.getMockedContacts(ContactsActivity.this) .get(i);
-//
-//                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
-//                intent.putExtra("First name", contact.getFirstname());
-//                intent.putExtra("Last name", contact.getLastname());
-//                intent.putExtra("Message", contact.getEmail());
-//
-//                try {
-//                    String fileName = "drawable";
-//
-//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//
-//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//
-//                    fileOutputStream.write(bytes.toByteArray());
-//                    fileOutputStream.close();
-//
-//
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                startActivity(intent);
-//            }
-//        });
 
         contactService = ServiceUtils.contactService;
 
@@ -177,6 +142,38 @@ public class ContactsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                contact = contacts.get(i);
+//
+//                contactService = ServiceUtils.contactService;
+//                Call<Contact> call = contactService.getContact(contact.getId());
+//
+//                call.enqueue(new Callback<Contact>() {
+//                    @Override
+//                    public void onResponse(Call<Contact> call, Response<Contact> response) {
+//
+//                        if (response.isSuccessful()){
+//                            contact = response.body();
+//                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
+//                            intent.putExtra("Contact", new Gson().toJson(contact));
+//
+//                            startActivity(intent);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Contact> call, Throwable t) {
+//                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//            }
+//        });
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
@@ -234,11 +231,11 @@ public class ContactsActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
-    }
+//    @Override
+//    public void setTitle(CharSequence title) {
+//        mTitle = title;
+//        getSupportActionBar().setTitle(mTitle);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -16,15 +16,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
 
-    public static final String SERVICE_API_PATH = "http://192.168.0.13:8080/api/";
+    public static final String SERVICE_API_PATH = "http://192.168.0.16:8080/api/";
     public static final String LOGIN = "accounts/{username}/{password}";
     public static final String USERNAME = "accounts/{username}";
     public static final String ACCOUNTS = "accounts/all";
     public static final String MESSAGES = "messages/all";
     public static final String SORTMESSAGES = "messages/order";
+//    public static final String MESSAGEID = "messages/{id}";
+//    public static final String MESSAGEDELETE = "messages/delete/{id}";
     public static final String FOLDERS = "folders/all";
     public static final String FOLDERID = "folders/folder/{id}";
     public static final String CONTACTS = "contacts/all";
+//    public static final String CONTACTID = "contacts/{id}";
+//    public static final String CONTACTDELETE = "contacts/delete/{id}";
 
 
     public static OkHttpClient test(){

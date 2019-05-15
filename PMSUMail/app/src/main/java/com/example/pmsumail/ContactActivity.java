@@ -11,10 +11,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pmsumail.model.Contact;
+import com.example.pmsumail.service.ContactService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContactActivity extends AppCompatActivity {
+
+    private ContactService contactService;
+    private Contact contact = new Contact();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +41,6 @@ public class ContactActivity extends AppCompatActivity {
         firstname_view.setText(getIntent().getStringExtra("First name"));
         lastname_view.setText(getIntent().getStringExtra("Last name"));
         email_view.setText(getIntent().getStringExtra("Message"));
-    }
-
-    //tekst koji se ispisuje na toolbar-u
-    @Override
-    public void setTitle(CharSequence title) {
-        CharSequence mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
     }
 
     //meni na toolbaru, odnosno ikonice za prelazak na ostale aktivnosti
@@ -64,10 +66,31 @@ public class ContactActivity extends AppCompatActivity {
                 Intent in = new Intent(this, ContactsActivity.class);
                 startActivity(in);
                 return true;
+            case R.id.action_delete_contact:
+//                deleteContact();
+                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ContactsActivity.class);
+                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+//    public void deleteContact() {
+//        Call<Contact> call = contactService.deleteContact(contact.getId());
+//
+//        call.enqueue(new Callback<Contact>() {
+//            @Override
+//            public void onResponse(Call<Contact> call, Response<Contact> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Contact> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     protected void onStart() {
