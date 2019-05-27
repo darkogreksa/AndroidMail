@@ -21,14 +21,19 @@ public class ServiceUtils {
     public static final String USERNAME = "accounts/{username}";
     public static final String ACCOUNTS = "accounts/all";
     public static final String MESSAGES = "messages/all";
-    public static final String SORTMESSAGES = "messages/order";
-//    public static final String MESSAGEID = "messages/{id}";
-//    public static final String MESSAGEDELETE = "messages/delete/{id}";
+    public static final String MESSAGEADD = "messages/add";
+    public static final String SORTMESSAGESASC = "messages/orderAsc";
+    public static final String SORTMESSAGESDESC = "messages/orderDesc";
+    public static final String MESSAGEID = "messages/{id}";
+    public static final String MESSAGEDELETE = "messages/delete/{id}";
     public static final String FOLDERS = "folders/all";
-    public static final String FOLDERID = "folders/folder/{id}";
+    public static final String FOLDERID = "folders/{id}";
+    public static final String FOLDERADD = "folders/add";
+    public static final String FOLDERDELETE = "folders/delete/{id}";
     public static final String CONTACTS = "contacts/all";
-//    public static final String CONTACTID = "contacts/{id}";
-//    public static final String CONTACTDELETE = "contacts/delete/{id}";
+    public static final String CONTACTID = "contacts/{id}";
+    public static final String CONTACTADD = "contacts/add";
+    public static final String CONTACTDELETE = "contacts/delete/{id}";
 
 
     public static OkHttpClient test(){

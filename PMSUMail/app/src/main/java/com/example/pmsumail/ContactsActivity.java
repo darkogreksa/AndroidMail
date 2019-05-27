@@ -114,6 +114,7 @@ public class ContactsActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+        // Floating action button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +124,8 @@ public class ContactsActivity extends AppCompatActivity {
         });
 
 
+        // Pozivanje metode koja izlistava sve kontakte
         contactService = ServiceUtils.contactService;
-
         Call call = contactService.getContacts();
 
         call.enqueue(new Callback<List<Contact>>() {
@@ -143,41 +144,74 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                contact = contacts.get(i);
-//
-//                contactService = ServiceUtils.contactService;
-//                Call<Contact> call = contactService.getContact(contact.getId());
-//
-//                call.enqueue(new Callback<Contact>() {
-//                    @Override
-//                    public void onResponse(Call<Contact> call, Response<Contact> response) {
-//
-//                        if (response.isSuccessful()){
-//                            contact = response.body();
-//                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
-//                            intent.putExtra("Contact", new Gson().toJson(contact));
-//
-//                            startActivity(intent);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Contact> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            }
-//        });
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Listener u listview-u koji reaguje na klik i otvara pojedinacnog kontakta
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                contact = contacts.get(i);
+
+                contactService = ServiceUtils.contactService;
+                Call<Contact> call = contactService.getContact(contact.getId());
+
+                call.enqueue(new Callback<Contact>() {
+                    @Override
+                    public void onResponse(Call<Contact> call, Response<Contact> response) {
+
+                        if (response.isSuccessful()){
+                            contact = response.body();
+                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
+                            intent.putExtra("Contact", new Gson().toJson(contact));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Contact> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                contact = contacts.get(i);
+
+                contactService = ServiceUtils.contactService;
+                Call<Contact> call = contactService.getContact(contact.getId());
+
+                call.enqueue(new Callback<Contact>() {
+                    @Override
+                    public void onResponse(Call<Contact> call, Response<Contact> response) {
+
+                        if (response.isSuccessful()){
+                            contact = response.body();
+                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
+                            intent.putExtra("Contact", new Gson().toJson(contact));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Contact> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
-    //Dodato zbog servisa
+    // Metoda koja izlistava sve kontakte
     public void getContact(){
         Call<List<Contact>> call = contactService.getContacts();
 
@@ -196,12 +230,15 @@ public class ContactsActivity extends AppCompatActivity {
         });
     }
 
+    // Ikonice i naslovi u navigation drawer-u
     private void prepareMenu(ArrayList<NavItem> mNavItems ){
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
         mNavItems.add(new NavItem(getString(R.string.folders), null, R.drawable.ic_folders));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
         mNavItems.add(new NavItem("Logout", null, R.drawable.ic_icon));
     }
+
+    // Listener za navigation drawer
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -209,7 +246,7 @@ public class ContactsActivity extends AppCompatActivity {
         }
     }
 
-
+    // Prelazak na druge aktivnosti klikom na odredjenu poziciju odnosno stavku u draweru
     private void selectItemFromDrawer(int position){
         if(position == 0){
             Intent emailsIntent = new Intent(this, EmailsActivity.class);
@@ -231,12 +268,7 @@ public class ContactsActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
-//    @Override
-//    public void setTitle(CharSequence title) {
-//        mTitle = title;
-//        getSupportActionBar().setTitle(mTitle);
-//    }
-
+    // Meni na toolbaru
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -244,6 +276,7 @@ public class ContactsActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Prelazak na create activity klikom na stavku menija na toolbaru
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

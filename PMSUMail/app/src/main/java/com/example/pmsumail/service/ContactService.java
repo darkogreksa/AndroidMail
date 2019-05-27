@@ -5,6 +5,11 @@ import com.example.pmsumail.model.Contact;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -19,9 +24,12 @@ public interface ContactService {
     @GET(ServiceUtils.CONTACTS)
     Call<List<Contact>> getContacts();
 
-//    @GET(ServiceUtils.CONTACTID)
-//    Call<Contact> getContact(@Path("id") int id);
-//
-//    @DELETE(ServiceUtils.CONTACTDELETE)
-//    Call<Contact> deleteContact(@Path("id") int id);
+    @GET(ServiceUtils.CONTACTID)
+    Call<Contact> getContact(@Path("id") int id);
+
+    @DELETE(ServiceUtils.CONTACTDELETE)
+    Call<Contact> deleteContact(@Path("id") int id);
+
+    @POST(ServiceUtils.CONTACTADD)
+    Call<Contact> addContact(@Body Contact contact);
 }

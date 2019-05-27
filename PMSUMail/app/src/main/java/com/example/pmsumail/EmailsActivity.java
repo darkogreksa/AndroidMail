@@ -190,69 +190,40 @@ public class EmailsActivity extends AppCompatActivity {
         });
 
 
-        //OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
+//        OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                message = messages.get(i);
-//
-//                messageService = ServiceUtils.messageService;
-//                Call<Message> call = messageService.getMessage(message.getId());
-//
-//                call.enqueue(new Callback<Message>() {
-//                    @Override
-//                    public void onResponse(Call<Message> call, Response<Message> response) {
-//
-//                        if (response.isSuccessful()){
-//                            message = response.body();
-//                            Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
-//                            intent.putExtra("Message", new Gson().toJson(message));
-//
-//                            startActivity(intent);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Message> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            }
-//        });
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        consultPreferences();
-
-    }
-
-    //Dodato zbog servisa
-    private void consultPreferences(){
-        sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_key_list),false);
-        if(sortMessages) {
-            sortDate();
-        }
-    }
-
-    //Dodato zbog servisa
-    private void sortDate(){
-        Call<List<Message>> callMessage = messageService.sortMessages();
-
-        callMessage.enqueue(new Callback<List<Message>>() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                messages = response.body();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
-                listView.setAdapter(adapter);
-            }
+                message = messages.get(i);
 
-            @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+                messageService = ServiceUtils.messageService;
+                Call<Message> call = messageService.getMessage(message.getId());
+
+                call.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+
+                        if (response.isSuccessful()){
+                            message = response.body();
+                            Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
+                            intent.putExtra("Message", new Gson().toJson(message));
+
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
     }
 
     //Dodato zbog servisa

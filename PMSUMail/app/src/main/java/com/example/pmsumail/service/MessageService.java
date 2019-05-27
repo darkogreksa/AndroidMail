@@ -20,13 +20,16 @@ public interface MessageService {
     @GET(ServiceUtils.MESSAGES)
     Call<List<Message>> getMessages();
 
-    @GET(ServiceUtils.SORTMESSAGES)
-    Call<List<Message>> sortMessages();
+    @GET(ServiceUtils.SORTMESSAGESASC)
+    Call<List<Message>> sortMessagesAsc();
 
-//    @GET(ServiceUtils.MESSAGEID)
-//    Call<Message> getMessage(@Path("id") int id);
+    @GET(ServiceUtils.SORTMESSAGESDESC)
+    Call<List<Message>> sortMessagesDesc();
 
-//    @DELETE(ServiceUtils.MESSAGEDELETE)
-//    Call<Message> deleteMessage(@Path("id") int id);
+    @GET(ServiceUtils.MESSAGEID)
+    Call<Message> getMessage(@Path("id") int id);
+
+    @DELETE(ServiceUtils.MESSAGEDELETE)
+    Call<Message> deleteMessage(@Path("id") int id);
 
 }

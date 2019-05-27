@@ -67,7 +67,7 @@ public class ContactActivity extends AppCompatActivity {
                 startActivity(in);
                 return true;
             case R.id.action_delete_contact:
-//                deleteContact();
+                deleteContact();
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, ContactsActivity.class);
                 startActivity(intent);
@@ -76,21 +76,22 @@ public class ContactActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void deleteContact() {
-//        Call<Contact> call = contactService.deleteContact(contact.getId());
-//
-//        call.enqueue(new Callback<Contact>() {
-//            @Override
-//            public void onResponse(Call<Contact> call, Response<Contact> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Contact> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    // Metoda koja brise izabranog kontakta
+    public void deleteContact() {
+        Call<Contact> call = contactService.deleteContact(contact.getId());
+
+        call.enqueue(new Callback<Contact>() {
+            @Override
+            public void onResponse(Call<Contact> call, Response<Contact> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Contact> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onStart() {

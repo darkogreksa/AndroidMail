@@ -124,6 +124,7 @@ public class EmailActivity extends AppCompatActivity {
 //        content_view.setText(getIntent().getStringExtra("Content"));
     }
 
+    // Meni na toolbaru
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -131,6 +132,7 @@ public class EmailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Funkionalnost menija gore navedenog
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -148,7 +150,7 @@ public class EmailActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Forward" , Toast.LENGTH_SHORT ).show();
                 return true;
             case R.id.action_delete:
-//                deleteMessage();
+                deleteMessage();
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, EmailsActivity.class);
                 startActivity(intent);
@@ -157,21 +159,22 @@ public class EmailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void deleteMessage() {
-//        Call<Message> call = messageService.deleteMessage(message.getId());
-//
-//        call.enqueue(new Callback<Message>() {
-//            @Override
-//            public void onResponse(Call<Message> call, Response<Message> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Message> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    // Metoda koja brise izabranu poruku
+    public void deleteMessage() {
+        Call<Message> call = messageService.deleteMessage(message.getId());
+
+        call.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onStart() {
