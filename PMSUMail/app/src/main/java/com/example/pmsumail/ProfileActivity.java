@@ -1,6 +1,8 @@
 package com.example.pmsumail;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +13,22 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pmsumail.model.Account;
+import com.example.pmsumail.service.AccountService;
+import com.example.pmsumail.service.ServiceUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class ProfileActivity extends AppCompatActivity {
 
     private NavigationView navigation;
     private TextView textViewUsername;
     private TextView textViewEmail;
+    private AccountService accountService;
+
 
 
 
@@ -24,7 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        //initView();
+        accountService = ServiceUtils.accountService;
+        initView();
 
 
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
@@ -38,13 +51,28 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-/*
     private void initView() {
         textViewUsername = findViewById(R.id.text_view_username);
         textViewEmail = findViewById(R.id.email_text_view);
-        textViewUsername.setText("Username: " + UtilsDummyModels.getMockedAccount().getUsername());
-        textViewEmail.setText("Message: " + UtilsDummyModels.getMockedAccount().getMessages());
-    }*/
+
+        SharedPreferences preferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
+        String username = preferences.getString(LoginActivity.Username, "DEFAULT");
+
+        Call<Account> call = accountService.getByUsername(username);
+        call.enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                if (response.body() == null) return;
+                textViewUsername.setText("Username: " + response.body().getUsername());
+                textViewEmail.setText("Email: " + response.body().getEmail());
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

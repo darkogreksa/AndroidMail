@@ -1,6 +1,7 @@
 package com.example.pmsumail.service;
 
 import com.example.pmsumail.model.Folder;
+import com.example.pmsumail.model.requestbody.FolderRequestBody;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface FolderService {
 
     @DELETE(ServiceUtils.FOLDERDELETE)
     Call<Folder> deleteFolder(@Path("id") int id);
+
+    //@POST(ServiceUtils.FOLDERADD)
+    //Call<Folder> createFolder(@Body FolderRequestBody folderRequestBody);
 }

@@ -1,6 +1,8 @@
 package com.example.pmsumail.model;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Message {
+public class Message implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -174,4 +176,55 @@ public class Message {
     public void setBcc(String bcc) {
         this.bcc = bcc;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.from);
+        dest.writeString(this.to);
+        dest.writeString(this.cc);
+        dest.writeString(this.bcc);
+        dest.writeSerializable(this.account);
+        dest.writeParcelable(this.folder, flags);
+        dest.writeLong(this.dateTime != null ? this.dateTime.getTime() : -1);
+        dest.writeString(this.subject);
+        dest.writeString(this.content);
+        dest.writeList(this.attachments);
+        dest.writeList(this.tags);
+    }
+
+    protected Message(Parcel in) {
+        this.id = in.readInt();
+        this.from = in.readString();
+        this.to = in.readString();
+        this.cc = in.readString();
+        this.bcc = in.readString();
+        this.account = (Account) in.readSerializable();
+        this.folder = in.readParcelable(Folder.class.getClassLoader());
+        long tmpDateTime = in.readLong();
+        this.dateTime = tmpDateTime == -1 ? null : new Date(tmpDateTime);
+        this.subject = in.readString();
+        this.content = in.readString();
+        this.attachments = new ArrayList<Attachment>();
+        in.readList(this.attachments, Attachment.class.getClassLoader());
+        this.tags = new ArrayList<Tag>();
+        in.readList(this.tags, Tag.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel source) {
+            return new Message(source);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
 }

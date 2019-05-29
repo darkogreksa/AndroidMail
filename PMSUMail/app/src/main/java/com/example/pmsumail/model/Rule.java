@@ -1,9 +1,12 @@
 package com.example.pmsumail.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Rule {
+public class Rule implements Parcelable {
 
 
     public enum Condition {
@@ -62,4 +65,36 @@ public class Rule {
     public void setOperation(Operation operation) {
         this.operation = operation;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.condition == null ? -1 : this.condition.ordinal());
+        dest.writeInt(this.operation == null ? -1 : this.operation.ordinal());
+    }
+
+    protected Rule(Parcel in) {
+        this.id = in.readInt();
+        int tmpCondition = in.readInt();
+        this.condition = tmpCondition == -1 ? null : Condition.values()[tmpCondition];
+        int tmpOperation = in.readInt();
+        this.operation = tmpOperation == -1 ? null : Operation.values()[tmpOperation];
+    }
+
+    public static final Parcelable.Creator<Rule> CREATOR = new Parcelable.Creator<Rule>() {
+        @Override
+        public Rule createFromParcel(Parcel source) {
+            return new Rule(source);
+        }
+
+        @Override
+        public Rule[] newArray(int size) {
+            return new Rule[size];
+        }
+    };
 }

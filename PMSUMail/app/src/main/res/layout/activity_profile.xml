@@ -26,6 +26,7 @@
                 app:srcCompat="@drawable/profile" />
 
             <TextView
+                android:id="@+id/text_view_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailSubject"
@@ -46,6 +47,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/email_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email:"
@@ -60,9 +62,9 @@
         </LinearLayout>
 
         <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/design_default_color_primary_dark" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/design_default_color_primary_dark" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/profile_toolbar"

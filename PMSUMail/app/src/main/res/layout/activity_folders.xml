@@ -48,16 +48,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            app:srcCompat="@drawable/ic_create_new_folder"
-            android:backgroundTint="@color/design_default_color_primary"/>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                app:srcCompat="@drawable/ic_create_new_folder"
+                android:backgroundTint="@color/design_default_color_primary"/>
 
             <RelativeLayout
                 android:id="@+id/main_content"
@@ -85,7 +85,7 @@
 
             </RelativeLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+        </android.support.design.widget.CoordinatorLayout>
         <!-- The navigation drawer -->
         <RelativeLayout
             android:layout_width="280dp"

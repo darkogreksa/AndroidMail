@@ -1,11 +1,14 @@
 package com.example.pmsumail.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Folder {
+public class Folder implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -82,4 +85,37 @@ public class Folder {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeParcelable(this.rule, flags);
+        dest.writeParcelable(this.subfolder, flags);
+        dest.writeTypedList(this.messages);
+    }
+
+    protected Folder(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.rule = in.readParcelable(Rule.class.getClassLoader());
+        this.subfolder = in.readParcelable(Folder.class.getClassLoader());
+        this.messages = in.createTypedArrayList(Message.CREATOR);
+    }
+
+    public static final Parcelable.Creator<Folder> CREATOR = new Parcelable.Creator<Folder>() {
+        @Override
+        public Folder createFromParcel(Parcel source) {
+            return new Folder(source);
+        }
+
+        @Override
+        public Folder[] newArray(int size) {
+            return new Folder[size];
+        }
+    };
 }

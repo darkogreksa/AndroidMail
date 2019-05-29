@@ -259,7 +259,7 @@ public class ContactsActivity extends AppCompatActivity {
             startActivity(settingsIntent);
         }else if(position == 3) {
             Intent ite = new Intent(this, LoginActivity.class);
-            sharedPreferences.edit().clear().commit();
+            sharedPreferences.edit().clear().apply();
             startActivity(ite);
             finish();
         }

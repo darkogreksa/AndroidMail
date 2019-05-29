@@ -120,6 +120,7 @@ public class EmailsActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
             }
+
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
@@ -127,13 +128,15 @@ public class EmailsActivity extends AppCompatActivity {
 
 
         };
+
+        // Floating action button koji prelazi na create email activity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(EmailsActivity.this, CreateEmailActivity.class);
                 startActivity(i);
-                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Fab", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -145,7 +148,7 @@ public class EmailsActivity extends AppCompatActivity {
         //Dodato zbog servisa
         TextView userText = findViewById(R.id.userName);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
-        if(sharedPreferences.contains(LoginActivity.Username)){
+        if (sharedPreferences.contains(LoginActivity.Username)) {
             userText.setText(sharedPreferences.getString(LoginActivity.Name, ""));
         }
         userPref = sharedPreferences.getString(LoginActivity.Username, "");
@@ -154,13 +157,14 @@ public class EmailsActivity extends AppCompatActivity {
         accountService = ServiceUtils.accountService;
 //        folderService = ServiceUtils.folderService;
 
+        // Pozivanje metode koja izlistava sve poruke
         Call call = messageService.getMessages();
 
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     messages = response.body();
                     listView.setAdapter(new EmailListAdapter(EmailsActivity.this, messages));
                 }
@@ -178,7 +182,7 @@ public class EmailsActivity extends AppCompatActivity {
         callAccounts.enqueue(new Callback<List<Account>>() {
             @Override
             public void onResponse(Call<List<Account>> callAcc, Response<List<Account>> responseAcc) {
-                if(responseAcc.isSuccessful()){
+                if (responseAcc.isSuccessful()) {
                     accounts = responseAcc.body();
                 }
             }
@@ -197,6 +201,9 @@ public class EmailsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 message = messages.get(i);
+                Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
+                intent.putExtra("Message", message);
+                startActivity(intent);
 
                 messageService = ServiceUtils.messageService;
                 Call<Message> call = messageService.getMessage(message.getId());
@@ -214,7 +221,7 @@ public class EmailsActivity extends AppCompatActivity {
                         }
                     }
 
-                    @Override
+                @Override
                     public void onFailure(Call<Message> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -224,9 +231,68 @@ public class EmailsActivity extends AppCompatActivity {
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-    }
+ /*   consultPreferences();
+    private void consultPreferences(){
+        sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_key_list),false);
+        if(sortMessages) {
+           sortDate();
+       }
 
-    //Dodato zbog servisa
+
+    private void sortDate(){
+       Call<List<Message>> callMessage = messageService.sortMessages();
+
+        callMessage.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                messages = response.body();
+
+                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+    }*/
+//        OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
+
+       /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            message = messages.get(i);
+
+            messageService = ServiceUtils.messageService;
+            Call<Message> call = messageService.getMessage(message.getId());
+
+            call.enqueue(new Callback<Message>() {
+                @Override
+                public void onResponse(Call<Message> call, Response<Message> response) {
+
+                    if (response.isSuccessful()){
+                        message = response.body();
+                        Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
+                        intent.putExtra("Message", new Gson().toJson(message));
+
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Message> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    });
+    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
+
+}
+    // Metoda koja izlistava sve poruke
     public void getMessage(){
         Call<List<Message>> call = messageService.getMessages();
 
@@ -244,6 +310,8 @@ public class EmailsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
