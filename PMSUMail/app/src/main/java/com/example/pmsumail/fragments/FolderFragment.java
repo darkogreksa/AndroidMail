@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Folder;
+import com.example.pmsumail.service.FolderService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class FolderFragment extends Fragment {
 
     private Folder folder;
     ArrayList<Folder> folders = new ArrayList<>();
+    private FolderService folderService;
+
 
 
     public FolderFragment() {

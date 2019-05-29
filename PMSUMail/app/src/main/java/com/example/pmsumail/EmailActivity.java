@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmsumail.model.Account;
@@ -46,12 +47,10 @@ public class EmailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.mail_toolbar);
         setSupportActionBar(toolbar);
 
-        String json = null;
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            json = extras.getString("Message");
+        if (extras != null) {
+            message = extras.getParcelable("Message");
         }
-        message = new Gson().fromJson(json, Message.class);
         messageService = ServiceUtils.messageService;
 
         accountService = ServiceUtils.accountService;
@@ -108,20 +107,19 @@ public class EmailActivity extends AppCompatActivity {
 //        });
 
 
-//        TextView from_view = findViewById(R.id.from_view);
-//        TextView to_view = findViewById(R.id.to_view);
-//        TextView subject_view = findViewById(R.id.subject_view);
-//        TextView cc_view = findViewById(R.id.cc_view);
-//        TextView bc_view = findViewById(R.id.bc_view);
-//        TextView content_view = findViewById(R.id.content_view);
-//
-//
-//        from_view.setText(getIntent().getStringExtra("From"));
-//        to_view.setText(getIntent().getStringExtra("To"));
-//        subject_view.setText(getIntent().getStringExtra("Subject"));
-//        cc_view.setText(getIntent().getStringExtra("CC"));
-//        bc_view.setText(getIntent().getStringExtra("BC"));
-//        content_view.setText(getIntent().getStringExtra("Content"));
+        TextView from_view = findViewById(R.id.from_view);
+        TextView to_view = findViewById(R.id.to_view);
+        TextView subject_view = findViewById(R.id.subject_view);
+        TextView cc_view = findViewById(R.id.cc_view);
+        TextView bc_view = findViewById(R.id.bc_view);
+        TextView content_view = findViewById(R.id.content_view);
+
+        from_view.setText("From: " + message.getFrom());
+        to_view.setText("To: " + message.getTo());
+        subject_view.setText("Subject: " + message.getSubject());
+        cc_view.setText("CC: " + message.getCc());
+        bc_view.setText("BC: " + message.getBcc());
+        content_view.setText("Content: " + message.getContent());
     }
 
     // Meni na toolbaru
@@ -134,20 +132,20 @@ public class EmailActivity extends AppCompatActivity {
 
     // Funkionalnost menija gore navedenog
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_back:
-                Intent i = new Intent (this, EmailsActivity.class);
+                Intent i = new Intent(this, EmailsActivity.class);
                 startActivity(i);
                 return true;
             case R.id.action_replay:
-                Toast.makeText(getBaseContext(), "Replay" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Replay", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_replayAll:
-                Toast.makeText(getBaseContext(), "Replay all" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Replay all", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_forward:
-                Toast.makeText(getBaseContext(), "Forward" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Forward", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_delete:
                 deleteMessage();

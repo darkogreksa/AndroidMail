@@ -1,5 +1,7 @@
 package com.example.pmsumail.service;
 
+import android.app.Service;
+
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.requestbody.MessageCreateRequestBody;
 

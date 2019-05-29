@@ -1,6 +1,8 @@
 package com.example.pmsumail;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmsumail.model.Contact;
+import com.example.pmsumail.service.AccountService;
 import com.example.pmsumail.service.ContactService;
+import com.example.pmsumail.service.ServiceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,8 +26,11 @@ import retrofit2.Response;
 
 public class ContactActivity extends AppCompatActivity {
 
+
     private ContactService contactService;
     private Contact contact = new Contact();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +41,14 @@ public class ContactActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
 
+
         TextView firstname_view = findViewById(R.id.firstname_view);
         TextView lastname_view = findViewById(R.id.lastname_view);
         TextView email_view = findViewById(R.id.email_view);
 
-        firstname_view.setText(getIntent().getStringExtra("First name"));
-        lastname_view.setText(getIntent().getStringExtra("Last name"));
-        email_view.setText(getIntent().getStringExtra("Message"));
+        firstname_view.setText("First Name: " + contact.getFirstname());
+        lastname_view.setText("Last Name: " + contact.getLastname());
+        email_view.setText("Email: " + contact.getEmail());
     }
 
     //meni na toolbaru, odnosno ikonice za prelazak na ostale aktivnosti

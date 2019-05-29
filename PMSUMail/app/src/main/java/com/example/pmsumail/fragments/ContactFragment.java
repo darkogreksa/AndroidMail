@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.pmsumail.R;
 import com.example.pmsumail.model.Contact;
+import com.example.pmsumail.service.FolderService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class ContactFragment extends Fragment {
     View view;
 
     private Contact contact;
+    private FolderService folderService;
     ArrayList<Contact> contacts = new ArrayList<>();
 
     public ContactFragment() {
