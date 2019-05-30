@@ -25,6 +25,7 @@ import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.adapters.FolderListAdapter;
 import com.example.pmsumail.model.Folder;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.AccountService;
 import com.example.pmsumail.service.FolderService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
@@ -55,6 +56,8 @@ public class FoldersActivity extends AppCompatActivity {
     private FolderService folderService;
     private ListView listView;
     private String userPref;
+    private AccountService accountService;
+
 
     private FolderListAdapter folderListAdapter;
 
@@ -117,6 +120,7 @@ public class FoldersActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+
         // Ispisivanje ulogovanog korisnika u draweru
         TextView userText = findViewById(R.id.userName);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
@@ -124,6 +128,7 @@ public class FoldersActivity extends AppCompatActivity {
             userText.setText(sharedPreferences.getString(LoginActivity.Name, ""));
         }
         userPref = sharedPreferences.getString(LoginActivity.Username, "");
+
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -138,6 +143,7 @@ public class FoldersActivity extends AppCompatActivity {
         });
 
         folderService = ServiceUtils.folderService;
+        accountService = ServiceUtils.accountService;
 
         Call call = folderService.getFolders();
 

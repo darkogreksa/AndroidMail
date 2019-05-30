@@ -48,7 +48,7 @@ public class FolderFragment extends Fragment {
         folder.getId();
 
         TextView FolderName_view = view.findViewById(R.id.folder_title_view);
-        FolderName_view .setText(folder.getName());
+        FolderName_view.setText(folder.getName());
 
 
     }

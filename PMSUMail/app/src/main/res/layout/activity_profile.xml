@@ -34,19 +34,6 @@
                 android:textSize="25dp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Last name:"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailSubject"
-                android:text="First name:"
-                android:textSize="25dp" />
-
-            <TextView
                 android:id="@+id/email_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

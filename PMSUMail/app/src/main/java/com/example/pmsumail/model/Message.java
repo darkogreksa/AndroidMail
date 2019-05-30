@@ -190,7 +190,7 @@ public class Message implements Parcelable {
         dest.writeString(this.cc);
         dest.writeString(this.bcc);
         dest.writeSerializable(this.account);
-        dest.writeParcelable(this.folder, flags);
+        //dest.writeParcelable(this.folder, flags);
         dest.writeLong(this.dateTime != null ? this.dateTime.getTime() : -1);
         dest.writeString(this.subject);
         dest.writeString(this.content);

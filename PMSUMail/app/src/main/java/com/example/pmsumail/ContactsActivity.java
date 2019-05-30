@@ -25,6 +25,7 @@ import com.example.pmsumail.adapters.ContactListAdapter;
 import com.example.pmsumail.adapters.DrawerListAdapter;
 import com.example.pmsumail.model.Contact;
 import com.example.pmsumail.model.NavItem;
+import com.example.pmsumail.service.AccountService;
 import com.example.pmsumail.service.ContactService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
@@ -53,6 +54,8 @@ public class ContactsActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ContactService contactService;
     private ListView listView;
+    private String userPref;
+    private AccountService accountService;
 
     private ContactListAdapter contactListAdapter;
 
@@ -113,6 +116,17 @@ public class ContactsActivity extends AppCompatActivity {
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        // Ispisivanje ulogovanog korisnika u draweru
+        TextView userText = findViewById(R.id.userName);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(LoginActivity.Username)) {
+            userText.setText(sharedPreferences.getString(LoginActivity.Name, ""));
+        }
+        userPref = sharedPreferences.getString(LoginActivity.Username, "");
+
+        contactService = ServiceUtils.contactService;
+        accountService = ServiceUtils.accountService;
 
         // Floating action button
         FloatingActionButton fab = findViewById(R.id.fab);

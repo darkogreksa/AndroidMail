@@ -2,6 +2,7 @@ package com.example.pmsumail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 import com.example.pmsumail.adapters.MessagesListAdapter;
 import com.example.pmsumail.model.Message;
 import com.example.pmsumail.model.Folder;
+import com.example.pmsumail.service.AccountService;
 import com.example.pmsumail.service.FolderService;
+import com.example.pmsumail.service.ServiceUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -31,6 +34,11 @@ import retrofit2.Response;
 public class FolderActivity extends AppCompatActivity {
 
     private FolderService folderService;
+    private AccountService accountService;
+    private SharedPreferences sharedPreferences;
+    String accountPrefe;
+
+
     private Folder folder = new Folder();
 
     private ArrayList<Folder> folders = new ArrayList<Folder>();
@@ -49,9 +57,10 @@ public class FolderActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.folder_toolbar);
         setSupportActionBar(toolbar);
 
+/*
         TextView FolderName_view = findViewById(R.id.folder_title_view);
 
-        FolderName_view.setText("Folder name: " + folder.getName());
+        FolderName_view.setText("Folder name: " + folder.getName());*/
     }
 
     @Override
