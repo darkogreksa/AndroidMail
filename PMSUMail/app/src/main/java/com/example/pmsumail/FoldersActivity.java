@@ -54,6 +54,7 @@ public class FoldersActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private FolderService folderService;
     private ListView listView;
+    private String userPref;
 
     private FolderListAdapter folderListAdapter;
 
@@ -116,6 +117,14 @@ public class FoldersActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+        // Ispisivanje ulogovanog korisnika u draweru
+        TextView userText = findViewById(R.id.userName);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(LoginActivity.Username)) {
+            userText.setText(sharedPreferences.getString(LoginActivity.Name, ""));
+        }
+        userPref = sharedPreferences.getString(LoginActivity.Username, "");
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -127,41 +136,6 @@ public class FoldersActivity extends AppCompatActivity {
 
             }
         });
-
-//        //dodajes listu itema u adapter
-//        folderListAdapter = new FolderListAdapter(this, UtilsDummyModels.getMockedFolders(FoldersActivity.this));
-//        final ListView listView = findViewById(R.id.folders_list);
-//        listView.setAdapter(folderListAdapter);
-////        setujes na klik listenre
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-////                int i ti je index kliknut u nizu
-//                Folder folder = UtilsDummyModels.getMockedFolders(FoldersActivity.this).get(i);
-//
-//                Intent intent = new Intent(FoldersActivity.this, FolderActivity.class);
-//                intent.putExtra("Folder_name", folder.getName());
-//
-//                try {
-//                    String fileName = "drawable";
-//
-//
-//                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//
-//
-//                    FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//
-//
-//                    fileOutputStream.write(bytes.toByteArray());
-//                    fileOutputStream.close();
-//
-//
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                startActivity(intent);
-//            }
-//        });
 
         folderService = ServiceUtils.folderService;
 
