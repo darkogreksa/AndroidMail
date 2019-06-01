@@ -37,6 +37,8 @@ import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -166,7 +168,11 @@ public class EmailsActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     messages = response.body();
-                    listView.setAdapter(new EmailListAdapter(EmailsActivity.this, messages));
+
+                    //uzeti iz shared prefrences da li je selektovano ascending ili descending
+                    //ako je ascending staviti true ako nije staviti false
+                    listView.setAdapter(new EmailListAdapter(EmailsActivity.this,
+                            sortedListOfMessages(messages, true)));
                 }
             }
 
@@ -212,16 +218,16 @@ public class EmailsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
 
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             message = response.body();
-                            Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
+                            Intent intent = new Intent(EmailsActivity.this, EmailActivity.class);
                             intent.putExtra("Message", new Gson().toJson(message));
 
                             startActivity(intent);
                         }
                     }
 
-                @Override
+                    @Override
                     public void onFailure(Call<Message> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -291,9 +297,30 @@ public class EmailsActivity extends AppCompatActivity {
     });
     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
 
-}
+    }
+
+    public List<Message> sortedListOfMessages(List<Message> messages, boolean isSortAscending) {
+        List<Message> sortedListOfMessagess = messages;
+        if (isSortAscending) {
+            Collections.sort(messages, new Comparator<Message>() {
+                public int compare(Message o1, Message o2) {
+                    return o2.getDateTime().compareTo(o1.getDateTime());
+                }
+            });
+        } else {
+            Collections.sort(messages, new Comparator<Message>() {
+                public int compare(Message o1, Message o2) {
+                    return o1.getDateTime().compareTo(o2.getDateTime());
+                }
+            });
+        }
+
+
+        return sortedListOfMessagess;
+    }
+
     // Metoda koja izlistava sve poruke
-    public void getMessage(){
+    public void getMessage() {
         Call<List<Message>> call = messageService.getMessages();
 
         call.enqueue(new Callback<List<Message>>() {
@@ -312,9 +339,6 @@ public class EmailsActivity extends AppCompatActivity {
     }
 
 
-
-
-
     //listener koji prihvata informaciju koja pozicija u draweru je kliknuta
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
@@ -324,7 +348,7 @@ public class EmailsActivity extends AppCompatActivity {
     }
 
     //ikonice i tekst za navigation drawer
-    private void prepareMenu(ArrayList<NavItem> mNavItems ){
+    private void prepareMenu(ArrayList<NavItem> mNavItems) {
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));
         mNavItems.add(new NavItem(getString(R.string.folders), null, R.drawable.ic_folders));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
@@ -332,17 +356,17 @@ public class EmailsActivity extends AppCompatActivity {
     }
 
     //prelazak na aktivnosti iz navigation drawera
-    private void selectItemFromDrawer(int position){
-        if(position == 0){
+    private void selectItemFromDrawer(int position) {
+        if (position == 0) {
             Intent contactsIntent = new Intent(this, ContactsActivity.class);
             startActivity(contactsIntent);
-        }else if(position == 1){
-            Intent foldersIntent = new Intent(this,FoldersActivity.class);
+        } else if (position == 1) {
+            Intent foldersIntent = new Intent(this, FoldersActivity.class);
             startActivity(foldersIntent);
-        }else if(position == 2){
-            Intent settingsIntent = new Intent(this,SettingsActivity.class);
+        } else if (position == 2) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
-        }else if(position == 3) {
+        } else if (position == 3) {
             Intent ite = new Intent(this, LoginActivity.class);
             sharedPreferences.edit().clear().commit();
             startActivity(ite);
@@ -367,12 +391,12 @@ public class EmailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent i = new Intent(this, SettingsActivity.class);
-                Toast.makeText(getBaseContext(), "Settings" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Settings", Toast.LENGTH_SHORT).show();
                 startActivity(i);
                 return true;
             case R.id.action_create_email:
                 Intent in = new Intent(this, CreateEmailActivity.class);
-                Toast.makeText(getBaseContext(), "Create mail" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Create mail", Toast.LENGTH_SHORT).show();
                 startActivity(in);
                 return true;
         }

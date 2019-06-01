@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onResponse(Call<Account> call, Response<Account> response) {
                 if (response.body() == null) return;
                 textViewUsername.setText("Username: " + response.body().getUsername());
-                textViewEmail.setText("Email: " + response.body().getEmail());
+                textViewEmail.setText("Email: " + response.body().getDisplay());
             }
 
             @Override

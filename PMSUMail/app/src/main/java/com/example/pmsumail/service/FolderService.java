@@ -28,6 +28,6 @@ public interface FolderService {
     @DELETE(ServiceUtils.FOLDERDELETE)
     Call<Folder> deleteFolder(@Path("id") int id);
 
-    //@POST(ServiceUtils.FOLDERADD)
-    //Call<Folder> createFolder(@Body FolderRequestBody folderRequestBody);
+    @POST(ServiceUtils.FOLDERADD)
+    Call<Folder> createFolder(@Body FolderRequestBody folderRequestBody);
 }

@@ -14,6 +14,7 @@
         android:padding="15dp">
 
         <EditText
+            android:id="@+id/first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -21,6 +22,7 @@
             android:maxLines="1" />
 
         <EditText
+            android:id="@+id/last_name"
             android:layout_width="match_parent"
             android:inputType="textEmailSubject"
             android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
             android:maxLines="1" />
 
         <EditText
+            android:id="@+id/email_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"

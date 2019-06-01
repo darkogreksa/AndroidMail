@@ -30,17 +30,12 @@ import com.example.pmsumail.service.FolderService;
 import com.example.pmsumail.service.ServiceUtils;
 import com.google.gson.Gson;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.example.pmsumail.service.ServiceUtils.folderService;
-import static com.example.pmsumail.service.ServiceUtils.messageService;
 
 public class FoldersActivity extends AppCompatActivity {
 
@@ -130,15 +125,12 @@ public class FoldersActivity extends AppCompatActivity {
         userPref = sharedPreferences.getString(LoginActivity.Username, "");
 
 
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent (FoldersActivity.this, CreateFolderActivity.class);
+                Intent in = new Intent(FoldersActivity.this, CreateFolderActivity.class);
                 startActivity(in);
-                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();;
-
             }
         });
 
@@ -151,7 +143,7 @@ public class FoldersActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Folder>> call, Response<List<Folder>> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     folders = response.body();
                     listView.setAdapter(new FolderListAdapter(FoldersActivity.this, folders));
                 }
@@ -168,38 +160,17 @@ public class FoldersActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 folder = folders.get(i);
-
-                folderService = ServiceUtils.folderService;
-                Call<Folder> call = folderService.getFolder(folder.getId());
-
-                call.enqueue(new Callback<Folder>() {
-                    @Override
-                    public void onResponse(Call<Folder> call, Response<Folder> response) {
-
-                        if (response.isSuccessful()){
-                            folder = response.body();
-                            Intent intent = new Intent(FoldersActivity.this,FolderActivity.class);
-                            intent.putExtra("Folder", new Gson().toJson(folder));
-
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Folder> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                Intent intent = new Intent(FoldersActivity.this, FolderActivity.class);
+                intent.putExtra("folder", folder);
+                startActivity(intent);
             }
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
 
-
     //Dodato zbog servisa
-    public void getFolder(){
+    public void getFolder() {
         Call<List<Folder>> call = folderService.getFolders();
 
         call.enqueue(new Callback<List<Folder>>() {
@@ -217,7 +188,7 @@ public class FoldersActivity extends AppCompatActivity {
         });
     }
 
-    private void prepareMenu(ArrayList<NavItem> mNavItems ){
+    private void prepareMenu(ArrayList<NavItem> mNavItems) {
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
@@ -230,18 +201,18 @@ public class FoldersActivity extends AppCompatActivity {
             selectItemFromDrawer(position);
         }
     }
-    private void selectItemFromDrawer(int position){
-        if(position == 0){
+
+    private void selectItemFromDrawer(int position) {
+        if (position == 0) {
             Intent contactsIntent = new Intent(this, ContactsActivity.class);
             startActivity(contactsIntent);
-        }else if(position == 1){
-            Intent foldersIntent = new Intent(this,EmailsActivity.class);
+        } else if (position == 1) {
+            Intent foldersIntent = new Intent(this, EmailsActivity.class);
             startActivity(foldersIntent);
-        }
-        else if(position == 2){
-            Intent settingsIntent = new Intent(this,SettingsActivity.class);
+        } else if (position == 2) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
-        }else if(position == 3) {
+        } else if (position == 3) {
             Intent ite = new Intent(this, LoginActivity.class);
             sharedPreferences.edit().clear().apply();
             startActivity(ite);
@@ -264,12 +235,13 @@ public class FoldersActivity extends AppCompatActivity {
         inflater.inflate(R.menu.activity_item_folders, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_create_folder:
                 Intent in = new Intent(this, CreateFolderActivity.class);
-                Toast.makeText(getBaseContext(), "Create folder" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Create folder", Toast.LENGTH_SHORT).show();
                 startActivity(in);
                 return true;
         }

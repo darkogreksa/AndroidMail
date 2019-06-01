@@ -25,17 +25,29 @@ public class Account implements Serializable {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("Display")
+    @Expose
+    private String display;
 
     public Account() {
     }
 
-    public Account(int id, String smtp, String pop3, String username, String password, String email) {
+    public Account(int id, String smtp, String pop3, String username, String password, String email, String display) {
         this.id = id;
         this.smtp = smtp;
         this.pop3 = pop3;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.display = display;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
     }
 
     public String getEmail() {

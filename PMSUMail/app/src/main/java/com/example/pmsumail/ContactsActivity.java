@@ -73,6 +73,7 @@ public class ContactsActivity extends AppCompatActivity {
         mDrawerList = findViewById(R.id.navList);
         listView = findViewById(R.id.contacts_list);
 
+
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +134,8 @@ public class ContactsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Fab" , Toast.LENGTH_SHORT ).show();
+                Intent intent = new Intent(ContactsActivity.this, CreateContactActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -146,7 +148,7 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     contacts = response.body();
                     listView.setAdapter(new ContactListAdapter(ContactsActivity.this, contacts));
                 }
@@ -159,11 +161,14 @@ public class ContactsActivity extends AppCompatActivity {
         });
 
         // Listener u listview-u koji reaguje na klik i otvara pojedinacnog kontakta
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 contact = contacts.get(i);
+                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
+                intent.putExtra("Contact", contact);
+                startActivity(intent);
 
                 contactService = ServiceUtils.contactService;
                 Call<Contact> call = contactService.getContact(contact.getId());
@@ -189,36 +194,16 @@ public class ContactsActivity extends AppCompatActivity {
 
             }
         });
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 contact = contacts.get(i);
-
-                contactService = ServiceUtils.contactService;
-                Call<Contact> call = contactService.getContact(contact.getId());
-
-                call.enqueue(new Callback<Contact>() {
-                    @Override
-                    public void onResponse(Call<Contact> call, Response<Contact> response) {
-
-                        if (response.isSuccessful()){
-                            contact = response.body();
-                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
-                            intent.putExtra("Contact", new Gson().toJson(contact));
-
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Contact> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
+                intent.putExtra("Contact", contact);
+                startActivity(intent);
             }
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -226,7 +211,7 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     // Metoda koja izlistava sve kontakte
-    public void getContact(){
+    public void getContact() {
         Call<List<Contact>> call = contactService.getContacts();
 
         call.enqueue(new Callback<List<Contact>>() {
@@ -245,7 +230,7 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     // Ikonice i naslovi u navigation drawer-u
-    private void prepareMenu(ArrayList<NavItem> mNavItems ){
+    private void prepareMenu(ArrayList<NavItem> mNavItems) {
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
         mNavItems.add(new NavItem(getString(R.string.folders), null, R.drawable.ic_folders));
         mNavItems.add(new NavItem(getString(R.string.settings), null, R.drawable.ic_settings));
@@ -261,17 +246,17 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     // Prelazak na druge aktivnosti klikom na odredjenu poziciju odnosno stavku u draweru
-    private void selectItemFromDrawer(int position){
-        if(position == 0){
+    private void selectItemFromDrawer(int position) {
+        if (position == 0) {
             Intent emailsIntent = new Intent(this, EmailsActivity.class);
             startActivity(emailsIntent);
-        }else if(position == 1){
-            Intent foldersIntent = new Intent(this,FoldersActivity.class);
+        } else if (position == 1) {
+            Intent foldersIntent = new Intent(this, FoldersActivity.class);
             startActivity(foldersIntent);
-        }else if(position == 2){
-            Intent settingsIntent = new Intent(this,SettingsActivity.class);
+        } else if (position == 2) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
-        }else if(position == 3) {
+        } else if (position == 3) {
             Intent ite = new Intent(this, LoginActivity.class);
             sharedPreferences.edit().clear().apply();
             startActivity(ite);
@@ -296,14 +281,13 @@ public class ContactsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_create_contacts:
                 Intent in = new Intent(this, CreateContactActivity.class);
-                Toast.makeText(getBaseContext(), "Create contact" , Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getBaseContext(), "Create contact", Toast.LENGTH_SHORT).show();
                 startActivity(in);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @Override

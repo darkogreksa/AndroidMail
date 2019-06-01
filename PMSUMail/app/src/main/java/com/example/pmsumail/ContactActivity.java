@@ -31,7 +31,6 @@ public class ContactActivity extends AppCompatActivity {
     private Contact contact = new Contact();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +39,11 @@ public class ContactActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            contact = extras.getParcelable("Contact");
+        }
 
 
         TextView firstname_view = findViewById(R.id.firstname_view);
@@ -68,7 +72,7 @@ public class ContactActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_save:
-                Snackbar.make(findViewById(R.id.action_save),"Saved",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.action_save), "Saved", Snackbar.LENGTH_SHORT).show();
                 return true;
             case R.id.action_back:
                 Intent in = new Intent(this, ContactsActivity.class);
@@ -76,12 +80,12 @@ public class ContactActivity extends AppCompatActivity {
                 return true;
             case R.id.action_delete_contact:
                 deleteContact();
-                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, ContactsActivity.class);
-                startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
+
+
+
     }
 
     // Metoda koja brise izabranog kontakta
@@ -91,7 +95,8 @@ public class ContactActivity extends AppCompatActivity {
         call.enqueue(new Callback<Contact>() {
             @Override
             public void onResponse(Call<Contact> call, Response<Contact> response) {
-
+                Toast.makeText(ContactActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

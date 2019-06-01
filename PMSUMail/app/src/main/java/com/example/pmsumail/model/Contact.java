@@ -1,9 +1,12 @@
 package com.example.pmsumail.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Contact {
+public class Contact implements Parcelable {
 
     public enum Format {
         PLAIN,
@@ -31,11 +34,13 @@ public class Contact {
     @SerializedName("f")
     @Expose
     private Format f;
+    private String note;
+
 
     public Contact() {
     }
 
-        public Contact(int id, String firstname, String lastname, String display, String email,Photo photo, Format f ){
+    public Contact(int id, String firstname, String lastname, String display, String email, Photo photo, Format f) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -44,7 +49,6 @@ public class Contact {
         this.photo = photo;
         this.f = f;
     }
-
 
 
     public Contact(String firstname, String lastname, String display, String email, Photo photo) {
@@ -107,6 +111,14 @@ public class Contact {
         return email;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -119,4 +131,43 @@ public class Contact {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.firstname);
+        dest.writeString(this.lastname);
+        dest.writeString(this.display);
+        dest.writeString(this.email);
+        //dest.writeParcelable(this.photo, flags);
+        dest.writeInt(this.f == null ? -1 : this.f.ordinal());
+    }
+
+    protected Contact(Parcel in) {
+        this.id = in.readInt();
+        this.firstname = in.readString();
+        this.lastname = in.readString();
+        this.display = in.readString();
+        this.email = in.readString();
+        //this.photo = in.readParcelable(Photo.class.getClassLoader());
+        int tmpF = in.readInt();
+        this.f = tmpF == -1 ? null : Format.values()[tmpF];
+    }
+
+    public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {
+        @Override
+        public Contact createFromParcel(Parcel source) {
+            return new Contact(source);
+        }
+
+        @Override
+        public Contact[] newArray(int size) {
+            return new Contact[size];
+        }
+    };
 }
