@@ -10,7 +10,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference);
-        ListPreference lpDate = (ListPreference) findPreference(getString(R.string.pref_sort_messages_by_date_key_list));
+///        ListPreference lpDate = (ListPreference) findPreference(getString(R.string.pref_sort_messages_by_date_key_list_asc));
     }
 
     @Override

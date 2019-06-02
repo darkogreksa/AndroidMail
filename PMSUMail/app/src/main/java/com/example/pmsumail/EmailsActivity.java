@@ -237,32 +237,7 @@ public class EmailsActivity extends AppCompatActivity {
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
- /*   consultPreferences();
-    private void consultPreferences(){
-        sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_key_list),false);
-        if(sortMessages) {
-           sortDate();
-       }
-
-
-    private void sortDate(){
-       Call<List<Message>> callMessage = messageService.sortMessages();
-
-        callMessage.enqueue(new Callback<List<Message>>() {
-            @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                messages = response.body();
-
-                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
-
-            }
-        });
-    }*/
+        consultPreferences();
 //        OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
 
        /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -297,6 +272,56 @@ public class EmailsActivity extends AppCompatActivity {
     });
     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
 
+    }
+
+
+
+    private void consultPreferences() {
+        sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_key_list_asc), false);
+        if (sortMessages) {
+            sortDateAsc();
+        }
+        else{
+            sortDateDesc();
+        }
+
+    }
+    private void sortDateAsc(){
+        Call<List<Message>> callMessage = messageService.sortMessagesAsc();
+
+        callMessage.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                messages = response.body();
+
+                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void sortDateDesc(){
+        Call<List<Message>> callMessage = messageService.sortMessagesDesc();
+
+        callMessage.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                messages = response.body();
+
+                EmailListAdapter adapter = new EmailListAdapter(EmailsActivity.this, messages);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
     }
 
     public List<Message> sortedListOfMessages(List<Message> messages, boolean isSortAscending) {

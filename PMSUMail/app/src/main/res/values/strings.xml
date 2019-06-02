@@ -32,7 +32,8 @@
     <string name="pref_sort_messages_by_date_key">pref_sort_messages_by_date_key</string>
     <string name="pref_sort_messages_by_date_title">Sort by date</string>
     <string name="pref_sort_messages_by_date_summary">Sort messages by date</string>
-    <string name="pref_sort_messages_by_date_key_list">pref_sort_messages_by_date_key_list</string>
+    <string name="pref_sort_messages_by_date_key_list_asc">pref_sort_messages_by_date_key_list_asc</string>
+    <string name="pref_sort_messages_by_date_key_list_desc">pref_sort_messages_by_date_key_list_desc</string>
     <string name="pref_refresh_messages_by_date_key_list">pref_refresh_messages_by_date_key_list</string>
     <string name="pref_refresh_messages">Refresh messages</string>
     <string name="title_activity_navigation_drawer">navigationDrawer</string>

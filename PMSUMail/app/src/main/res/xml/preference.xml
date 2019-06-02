@@ -11,14 +11,19 @@
             android:title="@string/pref_sort_messages"
             android:summary="@string/pref_sort_messages_by_date_summary"/>
 
-        <ListPreference
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="Ascending"
             android:dependency="@string/pref_sort_messages_by_date_key"
-            android:dialogTitle="@string/pref_sort_messages"
-            android:entries="@array/pref_syncSortingType_entries"
-            android:entryValues="@array/pref_syncSortingType_values"
-            android:key="@string/pref_sort_messages_by_date_key_list"
-            android:title="@string/pref_sort_messages_by_date_title"
-            android:summary="%s"/>
+            android:key="@string/pref_sort_messages_by_date_key_list_asc"
+            />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="Descending"
+            android:dependency="@string/pref_sort_messages_by_date_key"
+            android:key="@string/pref_sort_messages_by_date_key_list_desc"
+            />
 
         <ListPreference
             android:entries="@array/pref_syncRefreshingType_entries"
