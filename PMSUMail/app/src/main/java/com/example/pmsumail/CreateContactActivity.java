@@ -1,9 +1,13 @@
 package com.example.pmsumail;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,11 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreateContactActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-    private ImageView btnSave;
-    private ImageView btnCancel;
-    private TextView toolbarText;
-    private Button createContanctBtn;
 
     private EditText firstname;
     private EditText lastname;
@@ -40,48 +39,20 @@ public class CreateContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_contact);
         initView();
 
+        Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void initView() {
-        toolbar = findViewById(R.id.toolbar);
-        btnCancel = findViewById(R.id.button_one);
-        btnSave = findViewById(R.id.button_two);
-        toolbarText = findViewById(R.id.toolbar_text);
         firstname = findViewById(R.id.first_name);
         lastname = findViewById(R.id.last_name);
         email = findViewById(R.id.email_edit);
-        createContanctBtn = findViewById(R.id.button_create_contact);
 
-        btnSave.setImageDrawable(getResources().getDrawable(R.drawable.ic_save));
-        btnCancel.setImageDrawable(getResources().getDrawable(R.drawable.ic_cancel));
-        toolbarText.setText("Create contact");
         contactService = ServiceUtils.contactService;
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFolder();
-            }
-        });
-
-        createContanctBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFolder();
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
     }
 
-    private void createFolder() {
+    private void createContact() {
         Contact contact = new Contact();
         contact.setEmail(email.getText().toString());
         contact.setFirstname(firstname.getText().toString());
@@ -108,12 +79,31 @@ public class CreateContactActivity extends AppCompatActivity {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_item_create_contact, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, ContactsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_save:
+                createContact();
+                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ContactsActivity.class);
+                startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

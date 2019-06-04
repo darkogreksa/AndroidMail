@@ -1,9 +1,13 @@
 package com.example.pmsumail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,37 +41,18 @@ public class CreateFolderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_folder);
         folderService = ServiceUtils.folderService;
         initView();
+
+
+        Toolbar toolbar = findViewById(R.id.folder_toolbar);
         setSupportActionBar(toolbar);
 
 
     }
 
     private void initView() {
-        toolbar = findViewById(R.id.toolbar);
-        btnSave = toolbar.findViewById(R.id.button_one);
-        btnCancel = toolbar.findViewById(R.id.button_two);
-        btnBack = toolbar.findViewById(R.id.button_three);
-        toolbarText = toolbar.findViewById(R.id.toolbar_text);
+
         folderNameEditText = findViewById(R.id.folder_name);
-        butonSend = findViewById(R.id.button_send);
 
-        btnSave.setImageDrawable(getResources().getDrawable(R.drawable.ic_save));
-        btnCancel.setImageDrawable(getResources().getDrawable(R.drawable.ic_cancel_black_24dp));
-        btnBack.setImageDrawable(getResources().getDrawable(R.drawable.ic_back));
-        toolbarText.setText("Create folder");
-
-        butonSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFolder();
-            }
-        });
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFolder();
-            }
-        });
     }
 
     private void createFolder() {
@@ -91,6 +76,33 @@ public class CreateFolderActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_item_create_folder, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back:
+                Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, FoldersActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_save:
+                createFolder();
+                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, FoldersActivity.class);
+                startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onStart() {
