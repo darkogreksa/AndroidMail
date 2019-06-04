@@ -59,54 +59,6 @@ public class EmailActivity extends AppCompatActivity {
 
         accountPrefe = sharedPreferences.getString(LoginActivity.Username, "");
 
-//        Call<Account> call = accountService.getByUsername(accountPrefe);
-//
-//        call.enqueue(new Callback<Account>() {
-//            @Override
-//            public void onResponse(Call<Account> call, Response<Account> response) {
-//                account = response.body();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Account> call, Throwable t) {
-//
-//            }
-//        });
-
-//        Call callTags = tagService.getTags();
-//
-//        callTags.enqueue(new Callback<List<Tag>>() {
-//            @Override
-//            public void onResponse(Call<List<Tag>> calltag, Response<List<Tag>> res) {
-//
-//                if(res.isSuccessful()){
-//                    tags = res.body();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Tag>> calltag,Throwable t) {
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        Call callAttachments = attachmentService.getAttachments();
-//
-//        callAttachments.enqueue(new Callback<List<Attachment>>() {
-//            @Override
-//            public void onResponse(Call<List<Attachment>> callAtt, Response<List<Attachment>> responseAtt) {
-//                if(responseAtt.isSuccessful()) {
-//                    attachments = responseAtt.body();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
         TextView from_view = findViewById(R.id.from_view);
         TextView to_view = findViewById(R.id.to_view);
         TextView subject_view = findViewById(R.id.subject_view);

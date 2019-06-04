@@ -28,9 +28,6 @@ import retrofit2.Response;
 public class FolderActivity extends AppCompatActivity {
 
     private FolderService folderService;
-    private AccountService accountService;
-    private SharedPreferences sharedPreferences;
-    String accountPrefe;
 
     private TextView folderName;
 
@@ -57,10 +54,6 @@ public class FolderActivity extends AppCompatActivity {
         }
         folderService = ServiceUtils.folderService;
         initView();
-
-/*        TextView FolderName_view = findViewById(R.id.folder_title_view);
-
-        FolderName_view.setText("Folder name: " + folder.getName());*/
     }
 
     private void initView() {
@@ -87,7 +80,9 @@ public class FolderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Metoda za brisanje foldera
     public void deleteFolder() {
+        // Ako je naziv foldera inbox ili drafts, brisanje je zabranjeno
         if (folder.getName().equalsIgnoreCase("inbox") ||
                 folder.getName().equalsIgnoreCase("drafts")) {
             Toast.makeText(this, "You cant delete " + folder.getName() + " folder", Toast.LENGTH_SHORT).show();

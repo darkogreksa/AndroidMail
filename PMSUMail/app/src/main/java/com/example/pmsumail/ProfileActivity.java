@@ -29,9 +29,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView textViewEmail;
     private AccountService accountService;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    // Meni na toolbaru
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_item_profile, menu);
@@ -55,9 +53,11 @@ public class ProfileActivity extends AppCompatActivity {
         textViewUsername = findViewById(R.id.text_view_username);
         textViewEmail = findViewById(R.id.email_text_view);
 
+        // Preuzimanje informacije iz shared pref o ulogovanom korisniku
         SharedPreferences preferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
         String username = preferences.getString(LoginActivity.Username, "DEFAULT");
 
+        // Pozivanje metode koja ispisuje informacije o ulogovanom korisniku
         Call<Account> call = accountService.getByUsername(username);
         call.enqueue(new Callback<Account>() {
             @Override

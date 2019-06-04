@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Tag {
 
+    //Anotacije sluze za serijalizovanje, java polje je reprezentovano kao prosledjen parametar u JSON-u
+
     @SerializedName("id")
     @Expose
     private int id;

@@ -137,6 +137,7 @@ public class FoldersActivity extends AppCompatActivity {
         folderService = ServiceUtils.folderService;
         accountService = ServiceUtils.accountService;
 
+        // Pozivanje metode za izlistavanje svih foldera
         Call call = folderService.getFolders();
 
         call.enqueue(new Callback<List<Folder>>() {
@@ -155,6 +156,7 @@ public class FoldersActivity extends AppCompatActivity {
             }
         });
 
+        // Prelazak na folder act klikom na konkretan folder
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -169,7 +171,7 @@ public class FoldersActivity extends AppCompatActivity {
     }
 
 
-    //Dodato zbog servisa
+    //Metoda za izlistavanje svih foldera
     public void getFolder() {
         Call<List<Folder>> call = folderService.getFolders();
 
@@ -188,6 +190,7 @@ public class FoldersActivity extends AppCompatActivity {
         });
     }
 
+    // Ikonice i naslovi u navigation drawer-u
     private void prepareMenu(ArrayList<NavItem> mNavItems) {
         mNavItems.add(new NavItem(getString(R.string.contacts), null, R.drawable.ic_contact));
         mNavItems.add(new NavItem(getString(R.string.emails), null, R.drawable.ic_emails));
@@ -195,6 +198,7 @@ public class FoldersActivity extends AppCompatActivity {
         mNavItems.add(new NavItem("Logout", null, R.drawable.ic_icon));
     }
 
+    // Listener za navigation drawer
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -202,6 +206,7 @@ public class FoldersActivity extends AppCompatActivity {
         }
     }
 
+    // Prelazak na druge aktivnosti klikom na odredjenu poziciju odnosno stavku u draweru
     private void selectItemFromDrawer(int position) {
         if (position == 0) {
             Intent contactsIntent = new Intent(this, ContactsActivity.class);
@@ -229,6 +234,7 @@ public class FoldersActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(mTitle);
     }
 
+    // Meni na toolbaru
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -236,6 +242,7 @@ public class FoldersActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Prelazak na create activity klikom na stavku menija na toolbaru
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

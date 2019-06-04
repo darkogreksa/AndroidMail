@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class Account implements Serializable {
 
+    //Anotacije sluze za serijalizovanje, java polje je reprezentovano kao prosledjen parametar u JSON-u
     @SerializedName("id")
     @Expose
     private int id;

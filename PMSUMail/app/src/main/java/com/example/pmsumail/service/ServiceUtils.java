@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
 
-    public static final String SERVICE_API_PATH = "http://192.168.0.11:8080/api/";
+    public static final String SERVICE_API_PATH = "http://192.168.0.16:8080/api/";
     public static final String LOGIN = "accounts/{username}/{password}";
     public static final String USERNAME = "accounts/{username}";
     public static final String ACCOUNTS = "accounts/all";
@@ -36,6 +36,7 @@ public class ServiceUtils {
     public static final String CONTACTDELETE = "contacts/delete/{id}";
 
 
+    // Testiranje konekcije
     public static OkHttpClient test(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -48,11 +49,12 @@ public class ServiceUtils {
         return client;
     }
 
-    //static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:ss.SSSZ").create();
-
     static Gson gson = new GsonBuilder().registerTypeAdapter(Bitmap.class, ImageSerialization.getBitmapTypeAdapter())
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
+    // Retrofit je REST klijent koji sluzi za interakciju sa API-jem,
+    // slanje zahteva na http protokol i preuzimanje JSON odgovora sa web servisa
+    // Moramo dodati dependency i dozvolu za koriscenje WIFI
     public static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SERVICE_API_PATH)
             .addConverterFactory(GsonConverterFactory.create(gson))

@@ -84,11 +84,7 @@ public class ContactActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, ContactsActivity.class);
                 startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
-
-
-
     }
 
     // Metoda koja brise izabranog kontakta

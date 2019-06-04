@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class Attachment {
 
+    //Anotacije sluze za serijalizovanje, java polje je reprezentovano kao prosledjen parametar u JSON-u
+
     @SerializedName("id")
     @Expose
     private int id;

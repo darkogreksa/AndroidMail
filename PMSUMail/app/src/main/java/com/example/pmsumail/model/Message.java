@@ -12,6 +12,8 @@ import java.util.Date;
 
 public class Message implements Parcelable {
 
+    //Anotacije sluze za serijalizovanje, java polje je reprezentovano kao prosledjen parametar u JSON-u
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -177,6 +179,10 @@ public class Message implements Parcelable {
         this.bcc = bcc;
     }
 
+    // Parcelable interfejs predstavlja android implementaciju java serijalizovanja
+    // Sluzi da bi se odredjeni objekat mogao parsirati u neku drugu komponentu
+    // nama sluzi umesto fragmenata da bismo izlistali konkretnu poruku, folder i kontakta
+    // ove metode se automatski generisu kada dodamo implements Parcelable
     @Override
     public int describeContents() {
         return 0;

@@ -36,7 +36,6 @@ public interface MessageService {
     @DELETE(ServiceUtils.MESSAGEDELETE)
     Call<Message> deleteMessage(@Path("id") int id);
 
-    //
     @POST(ServiceUtils.MESSAGEADD)
     Call<Message> createMessage(@Body MessageCreateRequestBody messageCreateRequestBody);
 

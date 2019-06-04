@@ -55,8 +55,6 @@ public class EmailsActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private CharSequence mTitle;
     private List<Message> messages = new ArrayList<>();
-    private List<Account> accounts = new ArrayList<>();
-    private List<Folder> folders = new ArrayList<>();
     private ListView listView;
     private SharedPreferences sharedPreferences;
     private String userPref;
@@ -147,7 +145,8 @@ public class EmailsActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
 
 
-        //Dodato zbog servisa
+        // Preuzima informaciju iz shared pref u vezi konteksta
+        // odnosno postavlja username ulogovanog korisnika u odredjeni textview
         TextView userText = findViewById(R.id.userName);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPres, Context.MODE_PRIVATE);
         if (sharedPreferences.contains(LoginActivity.Username)) {
@@ -157,7 +156,6 @@ public class EmailsActivity extends AppCompatActivity {
 
         messageService = ServiceUtils.messageService;
         accountService = ServiceUtils.accountService;
-//        folderService = ServiceUtils.folderService;
 
         // Pozivanje metode koja izlistava sve poruke
         Call call = messageService.getMessages();
@@ -168,37 +166,15 @@ public class EmailsActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     messages = response.body();
-
-                    //uzeti iz shared prefrences da li je selektovano ascending ili descending
-                    //ako je ascending staviti true ako nije staviti false
-                    listView.setAdapter(new EmailListAdapter(EmailsActivity.this,
-                            sortedListOfMessages(messages, true)));
+                    listView.setAdapter(new EmailListAdapter(EmailsActivity.this, messages));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("darko", "onFailure: " + t.getMessage());
             }
         });
-
-        Call callAccounts = accountService.getAccounts();
-
-        callAccounts.enqueue(new Callback<List<Account>>() {
-            @Override
-            public void onResponse(Call<List<Account>> callAcc, Response<List<Account>> responseAcc) {
-                if (responseAcc.isSuccessful()) {
-                    accounts = responseAcc.body();
-                }
-            }
-
-            @Override
-            public void onFailure(Call callAcc, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
 //        OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
 
@@ -236,46 +212,12 @@ public class EmailsActivity extends AppCompatActivity {
             }
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         consultPreferences();
-//        OVO JE ZA POJEDINACAN EMAIL I PRELAZAK NA EMAIL ACTIVITY
-
-       /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            message = messages.get(i);
-
-            messageService = ServiceUtils.messageService;
-            Call<Message> call = messageService.getMessage(message.getId());
-
-            call.enqueue(new Callback<Message>() {
-                @Override
-                public void onResponse(Call<Message> call, Response<Message> response) {
-
-                    if (response.isSuccessful()){
-                        message = response.body();
-                        Intent intent = new Intent(EmailsActivity.this,EmailActivity.class);
-                        intent.putExtra("Message", new Gson().toJson(message));
-
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Message> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-    });
-    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
 
     }
 
 
-
+    // Pozivanje metoda za sortiranje
     private void consultPreferences() {
         sortMessages = sharedPreferences.getBoolean(getString(R.string.pref_sort_messages_by_date_key_list_asc), false);
         if (sortMessages) {
@@ -284,8 +226,9 @@ public class EmailsActivity extends AppCompatActivity {
         else{
             sortDateDesc();
         }
-
     }
+
+    // Rastuce sortiranje
     private void sortDateAsc(){
         Call<List<Message>> callMessage = messageService.sortMessagesAsc();
 
@@ -305,6 +248,7 @@ public class EmailsActivity extends AppCompatActivity {
         });
     }
 
+    // Opadajuce sortiranje
     private void sortDateDesc(){
         Call<List<Message>> callMessage = messageService.sortMessagesDesc();
 
@@ -322,26 +266,6 @@ public class EmailsActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public List<Message> sortedListOfMessages(List<Message> messages, boolean isSortAscending) {
-        List<Message> sortedListOfMessagess = messages;
-        if (isSortAscending) {
-            Collections.sort(messages, new Comparator<Message>() {
-                public int compare(Message o1, Message o2) {
-                    return o2.getDateTime().compareTo(o1.getDateTime());
-                }
-            });
-        } else {
-            Collections.sort(messages, new Comparator<Message>() {
-                public int compare(Message o1, Message o2) {
-                    return o1.getDateTime().compareTo(o2.getDateTime());
-                }
-            });
-        }
-
-
-        return sortedListOfMessagess;
     }
 
     // Metoda koja izlistava sve poruke

@@ -160,42 +160,7 @@ public class ContactsActivity extends AppCompatActivity {
             }
         });
 
-        // Listener u listview-u koji reaguje na klik i otvara pojedinacnog kontakta
-      /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                contact = contacts.get(i);
-                Intent intent = new Intent(ContactsActivity.this, ContactActivity.class);
-                intent.putExtra("Contact", contact);
-                startActivity(intent);
-
-                contactService = ServiceUtils.contactService;
-                Call<Contact> call = contactService.getContact(contact.getId());
-
-                call.enqueue(new Callback<Contact>() {
-                    @Override
-                    public void onResponse(Call<Contact> call, Response<Contact> response) {
-
-                        if (response.isSuccessful()){
-                            contact = response.body();
-                            Intent intent = new Intent(ContactsActivity.this,ContactActivity.class);
-                            intent.putExtra("Contact", new Gson().toJson(contact));
-
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Contact> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);*/
-
+        // Otvaranje selektovanog kontakta
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
