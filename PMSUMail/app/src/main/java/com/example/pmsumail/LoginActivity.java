@@ -54,8 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     doLogin(username, password);
                 }else{
                     editor.clear().commit();
-                    Intent intent = new Intent(LoginActivity.this, EmailsActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getBaseContext(), "Neispravni podaci", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validate(String username, String password){
         if(username == null || username.trim().length() == 0){
-            Toast.makeText(this, "Pogresan username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Neispravni podaci", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password == null || password.trim().length() == 0){
@@ -81,10 +80,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Account> call, Response<Account> response) {
                 Account account = response.body();
-                System.out.println("user " + account);
+                System.out.println("user " + account);;
+
                 if(username.equals(account.getUsername()) && password.equals(account.getPassword())){
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                   SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(Name, account.getUsername());
                     editor.commit();
 
@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //do nothing
     }
 
     @Override

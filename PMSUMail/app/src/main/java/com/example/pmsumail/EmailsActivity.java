@@ -81,6 +81,7 @@ public class EmailsActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerList = findViewById(R.id.navList);
+
         listView = findViewById(R.id.emails_list);
 
         //Prelazak na ProfileActivity na klik na "view profile"
@@ -212,6 +213,7 @@ public class EmailsActivity extends AppCompatActivity {
             }
         });
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         consultPreferences();
 
     }

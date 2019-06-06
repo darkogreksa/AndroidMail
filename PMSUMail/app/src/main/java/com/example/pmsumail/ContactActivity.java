@@ -80,9 +80,6 @@ public class ContactActivity extends AppCompatActivity {
                 return true;
             case R.id.action_delete_contact:
                 deleteContact();
-                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, ContactsActivity.class);
-                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -94,8 +91,8 @@ public class ContactActivity extends AppCompatActivity {
         call.enqueue(new Callback<Contact>() {
             @Override
             public void onResponse(Call<Contact> call, Response<Contact> response) {
-          /*    Toast.makeText(ContactActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
-                finish();*/
+                Toast.makeText(ContactActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

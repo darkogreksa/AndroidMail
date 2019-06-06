@@ -29,5 +29,5 @@ public interface FolderService {
     Call<Folder> deleteFolder(@Path("id") int id);
 
     @POST(ServiceUtils.FOLDERADD)
-    Call<Folder> createFolder(@Body FolderRequestBody folderRequestBody);
+    Call<Folder> addFolder(@Body Folder folder);
 }

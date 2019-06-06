@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pmsumail.model.Contact;
 import com.example.pmsumail.model.Folder;
 import com.example.pmsumail.model.requestbody.FolderRequestBody;
 import com.example.pmsumail.service.FolderService;
@@ -55,27 +56,34 @@ public class CreateFolderActivity extends AppCompatActivity {
 
     }
 
-    private void createFolder() {
-        String folderName = folderNameEditText.getText().toString();
-        if (folderName.isEmpty()) {
-            Toast.makeText(CreateFolderActivity.this, "Folder name is empty", Toast.LENGTH_LONG).show();
-            return;
-        }
-        FolderRequestBody folderRequestBody = new FolderRequestBody(folderName, "0", 0);
-        Call<Folder> folderCall = folderService.createFolder(folderRequestBody);
-        folderCall.enqueue(new Callback<Folder>() {
-            @Override
-            public void onResponse(Call<Folder> call, Response<Folder> response) {
-                Toast.makeText(CreateFolderActivity.this, "Folder is created", Toast.LENGTH_SHORT).show();
-                finish();
-            }
 
-            @Override
-            public void onFailure(Call<Folder> call, Throwable t) {
-                Log.e("CreateFolder", "on create folder failure");
-            }
-        });
+    private void createFolder() {
+    Folder folder = new Folder();
+    folder.setName(folderNameEditText.getText().toString());
+
+
+    if (folderNameEditText.getText().toString().isEmpty()) {
+        Toast.makeText(this, "Folder name is empty!", Toast.LENGTH_SHORT).show();
+        return;
     }
+
+
+    Call<Folder> folderCall = folderService.addFolder(folder);
+    folderCall.enqueue(new Callback<Folder>() {
+        @Override
+        public void onResponse(Call<Folder> call, Response<Folder> response) {
+            Toast.makeText(CreateFolderActivity.this, "Contact created", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        @Override
+        public void onFailure(Call<Folder> call, Throwable t) {
+            Toast.makeText(CreateFolderActivity.this, "Failed to create contact", Toast.LENGTH_SHORT).show();
+        }
+    });
+
+
+}
 
 
     @Override
