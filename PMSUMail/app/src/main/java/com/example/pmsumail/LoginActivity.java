@@ -80,8 +80,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Account> call, Response<Account> response) {
                 Account account = response.body();
-                System.out.println("user " + account);;
-
+                System.out.println("user " + account);
+                if(account == null){
+                    Toast.makeText(LoginActivity.this, "Neispravni podaci", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(username.equals(account.getUsername()) && password.equals(account.getPassword())){
 
                    SharedPreferences.Editor editor = sharedPreferences.edit();

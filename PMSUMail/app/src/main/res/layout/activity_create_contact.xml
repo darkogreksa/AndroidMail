@@ -64,25 +64,11 @@
             android:hint="@string/create_contact_email"
             android:maxLines="1" />
 
-        <Button
-            android:layout_marginBottom="70dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/button_add_photo"
-            android:text="@string/addPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
-    <Button
-        android:layout_marginBottom="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button_create_contact"
-        android:text="@string/button_create_contact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>
